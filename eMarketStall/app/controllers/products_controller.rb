@@ -4,6 +4,12 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     @products = Product.all
+    @searched_item=params[:search]
+    @category=params[:category]
+    @products=Product.where("title LIKE ?", "%#{@searched_item}%")
+    if @category.present?
+      @products=@products.where(category: @category)
+    end
     if params[:sort]=="title"
       @products=Product.order(:title)
     elsif params[:sort]=="price"

@@ -2,6 +2,15 @@
 
 <h1>Products</h1>
 
+<%= form_with(url: products_path, method: "get", id: "search-form") do |f| %>
+  <%= f.text_field :search, placeholder: "Search products..." %>
+  <%= f.select :category, options_for_select(["Category1", "Category2", "Category3"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "styled-select" %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @products.empty? %>
+  <p>Nessun risultato trovato.</p>
+<% else %>
 <table>
   <thead>
     <tr>
@@ -17,20 +26,23 @@
 
   <tbody>
     <% @products.each do |product| %>
-      <tr>
-        <td><%= product.title %></td>
-        <td><%= product.description %></td>
-        <td><%= product.price %></td>
-        <td><%= product.category %></td>
-        <td><%= product.availability %></td>
-        <td><%= product.published_at %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if product.category==@category || @category.blank? %>
+        <tr>
+          <td><%= product.title %></td>
+          <td><%= product.description %></td>
+          <td><%= product.price %></td>
+          <td><%= product.category %></td>
+          <td><%= product.availability %></td>
+          <td><%= product.published_at %></td>
+          <td><%= link_to 'Show', product %></td>
+          <td><%= link_to 'Edit', edit_product_path(product) %></td>
+          <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+<% end %>
 
 <% if user_signed_in? %>
               <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
