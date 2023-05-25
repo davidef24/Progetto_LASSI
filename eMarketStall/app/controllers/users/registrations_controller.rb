@@ -4,6 +4,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+
+    def edit_profile
+      @user = current_user
+    end
+
+    def update_profile
+      @user = current_user
+
+      if @user.update(user_params)
+        redirect_to root_path, notice: 'Profilo aggiornato con successo.'
+      else
+        render :edit_profile
+      end
+    end
+
+    def user_params
+      params.require(:user).permit(:city, :phone_number)
+    end
+
   
     def create
       super do |resource|

@@ -11,31 +11,35 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%#= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'application' , 'data-turbolinks-track': 'reload'%>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="<%= root_path %>">eMarketStall</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <% if user_signed_in? %>
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
-            <% else %>
-              <%= link_to 'Login', new_user_session_path, class: 'btn btn-success' %>
-            <% end %>
-          </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="<%= root_path %>">eMarketStall</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <% if user_signed_in? %>
+                <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+              <% else %>
+                <%= link_to 'Login', new_user_session_path, class: 'btn btn-success text-white' %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    </nav>
-    
+  </nav>
 
+    <% if user_signed_in? %>
+      <% if current_user.present? && current_user.provider == "google_oauth2" && (current_user.città.blank? || current_user.num_telefono.blank? || current_user.cap_residenza.blank? || current_user.num_telefono.blank?) %>
+        <%= link_to 'Completa il profilo', edit_profile_path %>
+      <% end %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

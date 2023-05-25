@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_24_162151) do
+ActiveRecord::Schema.define(version: 2023_05_25_192450) do
 
   create_table "products", force: :cascade do |t|
     t.string "title"
@@ -38,9 +38,10 @@ ActiveRecord::Schema.define(version: 2023_05_24_162151) do
     t.datetime "timeout_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "roles_mask"
+    t.integer "roles_mask", default: 2
     t.string "provider"
     t.string "uid"
+    t.string "cap_residenza"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -6,6 +6,11 @@
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import Turbolinks from "turbolinks"
+import * as ActiveStorage from "@rails/activestorage"
+import "jquery"
 
 Rails.start()
+Turbolinks.start()
 ActiveStorage.start()
+

@@ -1,51 +1,79 @@
-<h2>Inserisci i tuoi dati</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "needs-validation", novalidate: true}) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="container" style="margin-top:10px">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Inserisci i tuoi dati</h2>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "needs-validation", novalidate: true}) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="mb-3">
-    <%= f.label :nome, class: "form-label" %>
-    <%= f.text_field :nome, class: "form-control", autocomplete: "off" %>
+            <div class="mb-3">
+              <%= f.label :nome, class: "form-label font-weight-bold" %>
+              <%= f.text_field :nome, class: "form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :cognome, class: "form-label font-weight-bold" %>
+              <%= f.text_field :cognome, class: "form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :città, "Città di residenza", class: "form-label font-weight-bold" %>
+              <%= f.text_field :città, class: "form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :via_residenza, "Via di residenza",class: "form-label font-weight-bold" %>
+              <%= f.text_field :via_residenza, class: "form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :cap_residenza, "CAP",class: "form-label font-weight-bold" %>
+              <%= f.text_field :cap_residenza, class: "form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :num_telefono, "Numero di telefono",class: "form-label font-weight-bold" %>
+              <%= f.text_field :num_telefono, class: "form-control", autocomplete: "off" %>
+            </div>
+
+            <p class="font-weight-bold">Seleziona il tuo ruolo:</p>
+            <div class="form-check">
+              <%= f.radio_button :roles_mask, '1', checked: f.object.roles_mask.to_s == '1', class: "form-check-input" %>
+              <%= f.label :roles_mask_seller, "Seller", class: "form-check-label" %>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :roles_mask, '2', checked: f.object.roles_mask.to_s == '2', class: "form-check-input" %>
+              <%= f.label :roles_mask_buyer, "Buyer", class: "form-check-label" %>
+            </div>
+
+            <div class="mb-3" style="margin-top:10px">
+              <%= f.label :email, class: "form-label font-weight-bold" %>
+              <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label font-weight-bold" %>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password_confirmation, class: "form-label font-weight-bold" %>
+              <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
+            </div>
+
+            <div class="text-center">
+              <%= f.submit "Sign up", class: "btn btn-primary font-weight-bold" %>
+            </div>
+          <% end %>
+
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="mb-3">
-    <%= f.label :cognome, class: "form-label" %>
-    <%= f.text_field :cognome, class: "form-control", autocomplete: "off" %>
-  </div>
-
-  <p>Seleziona il tuo ruolo:</p>
-  <div class="form-check">
-    <%= f.radio_button :roles_mask, '1', checked: f.object.roles_mask.to_s == '1', class: "form-check-input" %>
-    <%= f.label :roles_mask_seller, "Seller", class: "form-check-label" %>
-  </div>
-  <div class="form-check">
-    <%= f.radio_button :roles_mask, '2', checked: f.object.roles_mask.to_s == '2', class: "form-check-input" %>
-    <%= f.label :roles_mask_buyer, "Buyer", class: "form-check-label" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :email, class: "form-label" %>
-    <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :password, class: "form-label" %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
-    <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :password_confirmation, class: "form-label" %>
-    <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
-  </div>
-
-  <div class="text-center">
-    <%= f.submit "Sign up", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-
-
-<%= render "devise/shared/links" %>
+</div>
