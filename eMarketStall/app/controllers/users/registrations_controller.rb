@@ -20,9 +20,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def user_params
-      params.require(:user).permit(:city, :phone_number)
+      params.require(:user).permit(:città, :num_telefono, :roles_mask, :cap_residenza, :via_residenza)
     end
 
+    def show
+      @user = current_user
+    end
   
     def create
       super do |resource|

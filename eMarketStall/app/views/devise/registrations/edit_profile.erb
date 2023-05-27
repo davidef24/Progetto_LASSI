@@ -1,29 +1,52 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Completa il tuo profilo</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">Aggiorna il tuo profilo</h1>
 
-<%= form_with(model: @user, url: update_profile_path, method: :patch) do |form| %>
-  <div class="field">
-    <%= form.label :città %>
-    <%= form.text_field :città %>
-  </div>
+          <%= form_with(model: @user, url: update_profile_path, method: :patch) do |form| %>
+            <div class="form-group">
+              <%= form.label :città, class: "font-weight-bold" %>
+              <%= form.text_field :città, class: "form-control" %>
+            </div>
 
-  <div class="field">
-    <%= form.label :num_telefono, "Numero di telefono"%>
-    <%= form.text_field :num_telefono %>
-  </div>
+            <div class="form-group">
+              <%= form.label :num_telefono, "Numero di telefono", class: "font-weight-bold" %>
+              <%= form.text_field :num_telefono, class: "form-control" %>
+            </div>
 
-  <p>Seleziona il tuo ruolo:</p>
-  <div class="form-check">
-    <%= form.radio_button :roles_mask, '1', checked: form.object.roles_mask.to_s == '1', class: "form-check-input" %>
-    <%= form.label :roles_mask_seller, "Seller", class: "form-check-label" %>
+            <div class="form-group">
+              <%= form.label :via_residenza, "Via di residenza", class: "font-weight-bold" %>
+              <%= form.text_field :via_residenza, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :cap_residenza, "CAP", class: "font-weight-bold" %>
+              <%= form.text_field :cap_residenza, class: "form-control" %>
+            </div>
+
+            <p>Seleziona il tuo ruolo:</p>
+            <div class="form-check">
+              <%= form.radio_button :roles_mask, '1', checked: form.object.roles_mask.to_s == '1', class: "form-check-input" %>
+              <%= form.label :roles_mask_seller, "Seller", class: "form-check-label font-weight-bold" %>
+            </div>
+            <div class="form-check">
+              <%= form.radio_button :roles_mask, '2', checked: form.object.roles_mask.to_s == '2', class: "form-check-input" %>
+              <%= form.label :roles_mask_buyer, "Buyer", class: "form-check-label font-weight-bold" %>
+            </div>
+
+            <br>
+
+            <div class="text-center">
+              <%= form.submit 'Aggiorna il profilo', class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-check">
-    <%= form.radio_button :roles_mask, '2', checked: form.object.roles_mask.to_s == '2', class: "form-check-input" %>
-    <%= form.label :roles_mask_buyer, "Buyer", class: "form-check-label" %>
-  </div>
-  <br>
-  <div class="actions">
-    <%= form.submit 'Aggiorna il profilo' %>
-  </div>
-<% end %>
+</div>
+

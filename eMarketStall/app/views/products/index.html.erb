@@ -1,15 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<h1 class="font-weight-bold">Products for sale</h1>
 
-<%= form_with(url: products_path, method: "get", id: "search-form") do |f| %>
-  <%= f.text_field :search, placeholder: "Search products..." %>
-  <%= f.select :category, options_for_select(["Category1", "Category2", "Category3"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "styled-select" %>
-  <%= f.submit "Search" %>
+<%= form_with(url: products_path, method: "get", id: "search-form", class: "form-inline") do |f| %>
+  <div class="input-group">
+    <%= f.text_field :search, placeholder: "Search products...", class: "form-control", style: "width: 300px"%>
+    <div class="input-group-append">
+      <%= f.select :category, options_for_select(["Collane", "Quadri", "Vasi"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "custom-select" %>
+    </div>
+    <div class="input-group-append">
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
 
+
 <% if @products.empty? %>
-  <p>Nessun risultato trovato.</p>
+  <div class="alert alert-warning mt-3">
+    <p class="font-weight-bolder">No products found</p>
+  </div>
 <% else %>
 <table>
   <thead>
@@ -35,8 +44,12 @@
           <td><%= product.availability %></td>
           <td><%= product.published_at %></td>
           <td><%= link_to 'Show', product %></td>
+          <% if can? :update, product %>
           <td><%= link_to 'Edit', edit_product_path(product) %></td>
+          <% end %>
+          <% if can? :destroy, product %>
           <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     <% end %>

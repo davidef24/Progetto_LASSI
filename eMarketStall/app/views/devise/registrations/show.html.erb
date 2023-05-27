@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title text-center font-weight-bold">Profilo utente</h1>
+          <p>Nome: <%= @user.nome %></p>
+          <p>Email: <%= @user.email %></p>
+          <p>Numero di telefono: <%= @user.num_telefono %></p>
+          <p>Ruolo: <%= @user.roles_mask %></p>
+          <p>Città di residenza: <%= @user.città %></p>
+          <p>Via di residenza: <%= @user.via_residenza %></p>
+          <p>CAP: <%= @user.cap_residenza %></p>
+
+          <%= link_to 'Modifica profilo', edit_profile_path, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

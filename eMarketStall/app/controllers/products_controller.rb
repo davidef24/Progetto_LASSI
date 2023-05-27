@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_product, only: [:edit, :update, :destroy]
 
   # GET /products or /products.json
   def index
@@ -22,12 +23,14 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @user = current_user
     @product = Product.find(params[:id])
   end
 
   # GET /products/new
   def new
-    @product = Product.new
+    @user = current_user
+    @product = @user.products.build
   end
 
   # GET /products/1/edit
@@ -36,7 +39,8 @@ class ProductsController < ApplicationController
 
   # POST /products or /products.json
   def create
-    @product = Product.new(product_params)
+    @user = current_user
+    @product = @user.products.build(product_params)
 
     respond_to do |format|
       if @product.save
@@ -51,6 +55,7 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    authorize! :update, @product
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
@@ -64,6 +69,7 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
+    authorize! :destroy, @product
     @product.destroy
 
     respond_to do |format|
@@ -82,4 +88,9 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:title, :description, :price, :category, :availability)
     end
+
+    def authorize_product
+      authorize! params[:action].to_sym, @product, @current_user
+    end
+    
 end
