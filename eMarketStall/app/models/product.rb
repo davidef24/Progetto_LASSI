@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   belongs_to :user
 
   before_validation :set_published_at, on: :create
+  before_create :set_unverified
 
   # Validazioni
   validates :title, presence: true
@@ -14,7 +15,12 @@ class Product < ApplicationRecord
   validates :published_at, presence: true
 
   private
+
   def set_published_at
     self.published_at = Time.current
+  end
+
+  def set_unverified
+    self.verified = false
   end
 end

@@ -23,6 +23,7 @@
 <table>
   <thead>
     <tr>
+      <th>Verified</th>
       <th><%= link_to "Title", products_path(sort: "title") %></th>
       <th>Description</th>
       <th><%= link_to "Price", products_path(sort: "price") %></th>
@@ -37,6 +38,11 @@
     <% @products.each do |product| %>
       <% if product.category==@category || @category.blank? %>
         <tr>
+          <% if product.verified %>
+          <td><span style="color: green; font-size: 20px;">&#x2713;</span></td>
+          <% else %>
+          <td><span style="color: red; font-size: 20px;">&#x2717;</span></td>
+          <% end %>
           <td><%= product.title %></td>
           <td><%= product.description %></td>
           <td><%= product.price %></td>
@@ -44,10 +50,10 @@
           <td><%= product.availability %></td>
           <td><%= product.published_at %></td>
           <td><%= link_to 'Show', product %></td>
-          <% if can? :update, product %>
+          <% if can? :update, product || can?(:manage, product) %>
           <td><%= link_to 'Edit', edit_product_path(product) %></td>
           <% end %>
-          <% if can? :destroy, product %>
+          <% if can? :update, product || can?(:manage, product) %>
           <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>

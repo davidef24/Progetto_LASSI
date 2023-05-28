@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     end
   end
 
-  
   #only: [] to generate just routes for products
   #users routes handled by devise
   resources :users, only: [] do

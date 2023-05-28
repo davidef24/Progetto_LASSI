@@ -36,6 +36,13 @@
     <%= form.number_field :availability %>
   </div>
 
+  <% if can?(:manage, product) %>
+    <div class="field">  
+    <%= form.label :verified %>
+    <%= form.check_box :verified, checked: product.verified %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

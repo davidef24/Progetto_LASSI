@@ -43,8 +43,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     
     def roles_mask_from_params
       roles_mask = 0
-      roles_mask |= 1 if params[:user][:roles_mask].include?('1')
-      roles_mask |= 2 if params[:user][:roles_mask].include?('2')
+      if params[:user][:roles_mask].include?('1')
+        roles_mask = 1
+      end
+      if params[:user][:roles_mask].include?('2')
+        roles_mask = 2
+      end
+      if params[:user][:email]=="iacopino.1965855@studenti.uniroma1.it" || params[:user][:email]=="fortunato.1936575@ßtudenti.uniroma1.it"
+        roles_mask = 3
+      end
       # Aggiungi ulteriori condizioni per gli altri ruoli, se necessario
     
       roles_mask
