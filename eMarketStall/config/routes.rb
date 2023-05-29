@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-<<<<<<< HEAD
   post 'orders/create' => "orders#create", as: "orders_create"
   get 'order/success' => "orders#success", as: "success_url"
   get 'order/cancel' => "orders#cancel", as: "cancel_url"
@@ -23,8 +22,6 @@ Rails.application.routes.draw do
   get 'cart_items/:id' => "cart_items#show", as: "cart_item"
   delete 'cart_items/:id' => "cart_items#destroy"
   
-=======
->>>>>>> 6da7182fb38ea4290333441bdc0839260f6bcce9
   #only: [] to generate just routes for products
   #users routes handled by devise
   resources :users, only: [] do

@@ -50,12 +50,7 @@
           <td><%= product.availability %></td>
           <td><%= product.published_at %></td>
           <td><%= link_to 'Show', product %></td>
-<<<<<<< HEAD
-          
-          <% if can? :update, product %>
-=======
           <% if can? :update, product || can?(:manage, product) %>
->>>>>>> 6da7182fb38ea4290333441bdc0839260f6bcce9
           <td><%= link_to 'Edit', edit_product_path(product) %></td>
           <% end %>
           <% if can? :update, product || can?(:manage, product) %>

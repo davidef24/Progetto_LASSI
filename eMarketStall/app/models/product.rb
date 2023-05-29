@@ -27,6 +27,7 @@ class Product < ApplicationRecord
     price = Stripe::Price.create(product: product, unit_amount: (self.price).to_i * 100, currency: 'eur')
     puts price
     update(stripe_product_id: product.id, stripe_price_id: price.id)
+  end
   def set_unverified
     self.verified = false
   end
