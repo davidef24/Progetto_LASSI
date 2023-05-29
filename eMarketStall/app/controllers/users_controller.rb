@@ -1,4 +1,3 @@
-
 class UsersController < ApplicationController
     def my_products
       @user = User.find(params[:user_id])

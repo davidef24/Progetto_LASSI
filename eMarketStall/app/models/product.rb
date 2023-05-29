@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   after_create :set_stripe_product_id
 
   before_validation :set_published_at, on: :create
+  before_create :set_unverified
 
   # Validazioni
   validates :title, presence: true
@@ -15,6 +16,7 @@ class Product < ApplicationRecord
   validates :published_at, presence: true
 
   private
+
   def set_published_at
     self.published_at = Time.current
   end
@@ -25,5 +27,7 @@ class Product < ApplicationRecord
     price = Stripe::Price.create(product: product, unit_amount: (self.price).to_i * 100, currency: 'eur')
     puts price
     update(stripe_product_id: product.id, stripe_price_id: price.id)
+  def set_unverified
+    self.verified = false
   end
 end

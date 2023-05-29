@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2023_05_29_084407) do
 
   create_table "cart_items", force: :cascade do |t|
@@ -35,6 +36,9 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
+=======
+ActiveRecord::Schema.define(version: 2023_05_27_182635) do
+>>>>>>> 6da7182fb38ea4290333441bdc0839260f6bcce9
 
   create_table "products", force: :cascade do |t|
     t.string "title"
@@ -46,8 +50,12 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "published_at"
     t.integer "user_id", null: false
+<<<<<<< HEAD
     t.string "stripe_product_id"
     t.string "stripe_price_id"
+=======
+    t.boolean "verified"
+>>>>>>> 6da7182fb38ea4290333441bdc0839260f6bcce9
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -66,7 +74,7 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
     t.datetime "timeout_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "roles_mask", default: 2
+    t.integer "roles_mask"
     t.string "provider"
     t.string "uid"
     t.string "cap_residenza"
