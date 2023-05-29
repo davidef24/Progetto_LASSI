@@ -1,0 +1,14 @@
+<h1>I miei ordini</h1>
+<table>
+
+  <tbody>
+    <% @user_for_orders.orders.each do |order| %>
+        <tr>
+          <%= order.id%>
+        </tr>
+        
+      <% end %>
+    
+  </tbody>
+</table>
+

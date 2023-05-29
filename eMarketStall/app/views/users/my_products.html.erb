@@ -1,0 +1,26 @@
+<!-- app/views/users/my_products.html.erb -->
+<!-- app/views/users/my_products.html.erb -->
+<h1>I miei prodotti</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrizione</th>
+      <th>Prezzo</th>
+      <th>Categoria</th>
+      <th>Disponibilità</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.category %></td>
+        <td><%= product.availability %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

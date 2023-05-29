@@ -38,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     private
     
     def sign_up_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :nome, :cognome, :roles_mask)
+      params.require(:user).permit(:email, :password, :password_confirmation, :nome, :cognome, :roles_mask, :città, :num_telefono, :via_residenza, :cap_residenza)
     end
     
     def roles_mask_from_params

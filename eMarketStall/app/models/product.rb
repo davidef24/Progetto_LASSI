@@ -2,6 +2,7 @@ class Product < ApplicationRecord
     # Associazioni
   #has_many_attached :images
   belongs_to :user
+  after_create :set_stripe_product_id
 
   before_validation :set_published_at, on: :create
 
@@ -16,5 +17,13 @@ class Product < ApplicationRecord
   private
   def set_published_at
     self.published_at = Time.current
+  end
+
+  def set_stripe_product_id 
+    product = Stripe::Product.create(name: self.title)
+    # * 100 beceause Stipe amounts are in cents unit
+    price = Stripe::Price.create(product: product, unit_amount: (self.price).to_i * 100, currency: 'eur')
+    puts price
+    update(stripe_product_id: product.id, stripe_price_id: price.id)
   end
 end

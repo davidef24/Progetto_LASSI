@@ -1,0 +1,33 @@
+<% if @cart.cart_items.size == 0%>
+  <h1>Your cart is empty, <%= link_to "add products", products_path%></h1>
+<%else%>
+<h1>Your cart contains:</h1>
+<ul>
+  <% @cart.cart_items.each do |cart_el| %>
+    <li>
+      Item: <%= cart_el.product.title %>
+      / Price: <%= number_to_currency(cart_el.product.price) %>
+      / Quantity: <%= cart_el.quantity %>
+      / Total Price: <%= number_to_currency(cart_el.total_price) %>
+
+      <!-- See cartItem section below for explanation of cart_item links -->
+      <ul>
+        <li>
+          <%= link_to "Add one", cart_item_increase_path(id: cart_el), method: :post %>
+          <%= link_to "Reduce one", cart_item_decrease_path(id: cart_el), method: :post %>
+        </li>
+        <li>
+          <%= link_to "Remove item", cart_item_path(cart_el), method: :delete %>
+        </li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Sub total: <%= number_to_currency(@cart.sub_total) %></h3>
+
+<!-- See Order section below for explanation of new_order_path -->
+<%= button_to "Proceed to checkout", orders_create_path %><br>
+
+<%= link_to "Empty cart", cart_path(@current_cart), method: :delete, data: { confirm: "Are you sure?" } %>
+<%end%>

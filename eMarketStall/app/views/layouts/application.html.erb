@@ -12,6 +12,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' , 'data-turbolinks-track': 'reload'%>
+    <%= stripe_javascript_tag%>
   </head>
 
   <body>
@@ -24,11 +25,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
-              <% if user_signed_in? %>
-                  <li class="nav-item">
-                      <%= link_to 'Il mio profilo', my_profile_path, class: 'nav-link' %>
-                 </li>
-              <% end %>
+            <% if user_signed_in? %>
+            <li class="nav-item">
+                <%= link_to 'I miei ordini', user_orders_path(@current_user), class: 'nav-link text-uppercase font-weight-bold' %>
+              </li>
+            <li class="nav-item">
+                <%= link_to 'Il mio carrello', cart_path(@current_cart), class: 'nav-link text-uppercase font-weight-bold' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'I miei prodotti', user_my_products_path(current_user), class: 'nav-link text-uppercase font-weight-bold' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Il mio profilo', my_profile_path, class: 'nav-link text-uppercase font-weight-bold' %>
+              </li>
+            <% end %>
             <li class="nav-item">
               <% if user_signed_in? %>
                 <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
@@ -40,6 +50,7 @@
         </div>
       </div>
     </nav>
+
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
