@@ -70,7 +70,16 @@ class ProductsController < ApplicationController
   # DELETE /products/1 or /products/1.json
   def destroy
     authorize! :destroy, @product
-    @product.destroy
+
+    #I know, it's brutal but I had to add these two attributes to handle correctly a destruction from a seller of a product.
+    #Did to resolve the following problem: When a seller removes a product from the database, it can create a problem with the foreign key constraint in the context
+    #of orders. If a user has already purchased a product, but there are still remaining pieces of that product available for sale, the order associated with that
+    #user would have a reference to the product. However, if the seller decides to remove the product from the database, the foreign key constraint would be violated
+    # because the order would reference a non-existent product.
+    @product.removed_from_seller = true;
+    @product.removed_at= Date.today;
+    @product.save
+    puts "--------STO DISTRUGGEDO IL PRODOTTO-------------"
 
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }

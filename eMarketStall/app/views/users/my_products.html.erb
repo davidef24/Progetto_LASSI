@@ -5,21 +5,39 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>Descrizione</th>
-      <th>Prezzo</th>
-      <th>Categoria</th>
-      <th>Disponibilità</th>
+      <th>Verified</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Availability</th>
     </tr>
   </thead>
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <% if product.verified %>
+          <td><span style="color: green; font-size: 20px;">&#x2713;</span></td>
+          <% else %>
+          <td><span style="color: red; font-size: 20px;">&#x2717;</span></td>
+          <% end %>
         <td><%= product.title %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
         <td><%= product.category %></td>
-        <td><%= product.availability %></td>
+        <% if product.availability == 0%>
+        <td>There are no remaining pieces of this product. You have sold all of them.</td>
+        <% elsif product.removed_from_seller%>
+        <td>You removed this product from sale on <%= product.removed_at %></td>
+        <% else %>
+          <td><%= product.availability %></td>
+          <% if can? :update, product || can?(:manage, product) %>
+            <td><%= link_to 'Edit', edit_product_path(product) %></td>
+            <% end %>
+            <% if can? :update, product || can?(:manage, product) %>
+            <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   end
 
   post 'orders/create' => "orders#create", as: "orders_create"
-  get 'order/success' => "orders#success", as: "success_url"
-  get 'order/cancel' => "orders#cancel", as: "cancel_url"
+  get 'order/success' => "orders#success", as: "payment_success"
+  get 'order/cancel' => "orders#cancel", as: "payment_cancel"
 
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"

@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :category, inclusion: { in: ['Collane', 'Vasi', 'Quadri'] }
+  validates :category, inclusion: { in: ['Collane', 'Vasi', 'Pittura', 'Piatti', 'Lavorazione del legno'] }
   validates :availability, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :published_at, presence: true
 

@@ -10,17 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_29_084407) do
+ActiveRecord::Schema.define(version: 2023_05_30_180646) do
 
   create_table "cart_items", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "order_id"
     t.integer "cart_id", null: false
     t.integer "product_id", null: false
     t.integer "quantity"
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
-    t.index ["order_id"], name: "index_cart_items_on_order_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
@@ -33,6 +31,8 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
+    t.integer "cart_id", null: false
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
     t.string "stripe_product_id"
     t.string "stripe_price_id"
     t.boolean "verified", default: false
+    t.boolean "removed_from_seller", default: false
+    t.date "removed_at"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -63,7 +65,6 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "last_activity_at"
     t.datetime "timeout_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2023_05_29_084407) do
 
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
+  add_foreign_key "orders", "carts"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
 end

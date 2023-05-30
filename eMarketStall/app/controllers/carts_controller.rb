@@ -3,9 +3,10 @@ class CartsController < ApplicationController
     @cart = @current_cart
   end
 
+
+  #destroying a cart, in our app means that session[:cart_id] has to be set up to nil
+  #this will trigger in ApplicationController (method set_current_cart:line 14) the creation of a new cart, which initially will be empty
   def destroy
-    @cart = @current_cart
-    @cart.destroy
     session[:cart_id] = nil
     redirect_to root_path
   end

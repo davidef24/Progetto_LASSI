@@ -22,7 +22,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
    def destroy
-    Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
     super
    end

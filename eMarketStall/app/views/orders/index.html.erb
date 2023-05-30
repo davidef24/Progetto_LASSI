@@ -1,14 +1,30 @@
-<h1>I miei ordini</h1>
-<table>
+<h1 class="text-center mb-4">I miei ordini</h1>
 
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Data ordine</th>
+      <th scope="col">Costo ordine</th>
+      <th scope="col">Dettagli ordine</th>
+    </tr>
+  </thead>
   <tbody>
     <% @user_for_orders.orders.each do |order| %>
-        <tr>
-          <%= order.id%>
-        </tr>
-        
-      <% end %>
-    
+      <tr>
+        <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= number_to_currency(order.cart.sub_total) %></td>
+        <td>
+         
+          <a class="" data-toggle="collapse" href="#orderDetails<%= order.id %>" role="button" aria-expanded="false" aria-controls="orderDetails<%= order.id %>">
+            <i class="fa-solid fa-plus"></i>
+          </a>
+          <div class="collapse" id="orderDetails<%= order.id %>">
+            <% order.cart.cart_items.each do |cart_item| %>
+              <p><%= cart_item.product.title %>, <%= cart_item.product.user.email %>, <%= cart_item.product.price %>, <%= cart_item.quantity %> </p>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
-

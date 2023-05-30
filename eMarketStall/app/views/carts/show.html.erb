@@ -29,5 +29,7 @@
 <!-- See Order section below for explanation of new_order_path -->
 <%= button_to "Proceed to checkout", orders_create_path %><br>
 
+<%= link_to "Keep adding products", products_path %> <br>
+
 <%= link_to "Empty cart", cart_path(@current_cart), method: :delete, data: { confirm: "Are you sure?" } %>
 <%end%>

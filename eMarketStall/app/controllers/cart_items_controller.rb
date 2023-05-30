@@ -20,8 +20,7 @@ class CartItemsController < ApplicationController
         end
         @cart_item.quantity += 1
       else
-        order = Order.create(user_id: @current_user.id)
-        @cart_item = CartItem.create(cart_id: @current_cart.id, product_id: added_product_id, order_id: order.id, quantity: 1)
+        @cart_item = CartItem.create(cart_id: @current_cart.id, product_id: added_product_id, quantity: 1)
       end
     
       # Save and redirect to cart show path

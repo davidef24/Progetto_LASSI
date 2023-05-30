@@ -1,1 +1,16 @@
-<h1 style="color=green"> Your payment was good</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="alert alert-success" role="alert">
+            <h1 class="text-center">Your payment was successful</h1>
+          </div>
+          <p class="card-text" style="font-size:16px">
+                To check the details of your order, go to the <%= link_to 'My orders page', user_orders_path(@current_user)%>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

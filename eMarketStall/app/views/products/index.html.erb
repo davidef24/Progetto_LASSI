@@ -6,7 +6,7 @@
   <div class="input-group">
     <%= f.text_field :search, placeholder: "Search products...", class: "form-control", style: "width: 300px"%>
     <div class="input-group-append">
-      <%= f.select :category, options_for_select(["Collane", "Quadri", "Vasi"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "custom-select" %>
+      <%= f.select :category, options_for_select(["Collane","Lavorazione del legno", "Piatti", "Pittura", "Vasi"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "custom-select" %>
     </div>
     <div class="input-group-append">
       <%= f.submit "Search", class: "btn btn-primary" %>
@@ -37,7 +37,9 @@
   <tbody>
     <% @products.each do |product| %>
       <% if product.category==@category || @category.blank? %>
+       <%if product.removed_from_seller == false %>
         <tr>
+          <% if product.availability > 0 && product.user_id != @current_user.id%>
           <% if product.verified %>
           <td><span style="color: green; font-size: 20px;">&#x2713;</span></td>
           <% else %>
@@ -50,16 +52,15 @@
           <td><%= product.availability %></td>
           <td><%= product.published_at %></td>
           <td><%= link_to 'Show', product %></td>
-          <% if can? :update, product || can?(:manage, product) %>
-          <td><%= link_to 'Edit', edit_product_path(product) %></td>
-          <% end %>
-          <% if can? :update, product || can?(:manage, product) %>
-          <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
+          <% if can?(:manage, product) %>
+            <td><%= link_to 'Edit', edit_product_path(product) %></td>
+            <% end %>
           <% if can? :buy, product%>
           <td><%=button_to "Add to cart", cart_items_path(:product_id => product.id)%></td>
           <% end %>
+          <% end%>
         </tr>
+        <% end %>
       <% end %>
     <% end %>
   </tbody>
