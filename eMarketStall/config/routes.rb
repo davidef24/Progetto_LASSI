@@ -9,9 +9,13 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'wishlists/:id/add' => "wishlist_items#add", as: "add_to_wishlist"
+  get 'wishlists/:id' => "wishlists#show", as: "show_wishlist"
+  delete 'wishlist_items/:id' => "wishlist_items#remove", as: "remove_from_wishlist"
+
   post 'orders/create' => "orders#create", as: "orders_create"
-  get 'order/success' => "orders#success", as: "payment_success"
-  get 'order/cancel' => "orders#cancel", as: "payment_cancel"
+  get 'orders/success' => "orders#success", as: "payment_success"
+  get 'orders/cancel' => "orders#cancel", as: "payment_cancel"
 
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"

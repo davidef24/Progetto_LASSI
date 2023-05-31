@@ -18,6 +18,7 @@ module EMarketStall
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone='Rome'
     config.stripe.secret_key = ENV["STRIPE_SECRET_KEY"]
     config.stripe.publishable_key = ENV["STRIPE_PUBLISHABLE_KEY"]
   end
