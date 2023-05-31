@@ -24,8 +24,6 @@ class OrdersController < ApplicationController
       { price: item.product.stripe_price_id, quantity: item.quantity}
     end
 
-    puts line_items_json
-
     @session = Stripe::Checkout::Session.create({
         customer: @current_user.stripe_customer_id,
         payment_method_types: ['card'],
@@ -34,7 +32,6 @@ class OrdersController < ApplicationController
         success_url: payment_success_url + "?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: payment_cancel_url,
     })
-    payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
     redirect_to @session.url
   end
   

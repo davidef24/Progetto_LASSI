@@ -9,6 +9,12 @@
       / Price: <%= number_to_currency(cart_el.product.price) %>
       / Quantity: <%= cart_el.quantity %>
       / Total Price: <%= number_to_currency(cart_el.total_price) %>
+      <% if cart_el.product.verified == false %>
+        <div class="alert alert-danger mt-3">
+          <p class="font-weight-bolder">This product has not been verified by an admin yet. This means that there is no quality assurance for the listing.</p>
+        </div>
+      <% end %>
+
 
       <!-- See cartItem section below for explanation of cart_item links -->
       <ul>
