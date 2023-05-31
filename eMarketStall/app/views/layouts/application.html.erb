@@ -36,6 +36,9 @@
                 <%= link_to 'Il mio carrello', cart_path(@current_cart), class: 'nav-link' %>
               </li>
               <li class="nav-item">
+                <%= link_to 'La mia lista dei desideri', show_wishlist_path(@current_user), class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
                 <%= link_to 'I miei prodotti', user_my_products_path(current_user), class: 'nav-link ' %>
               </li>
               <li class="nav-item">
@@ -53,7 +56,6 @@
         </div>
       </div>
     </nav>
-
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>

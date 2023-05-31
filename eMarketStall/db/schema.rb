@@ -46,9 +46,9 @@ ActiveRecord::Schema.define(version: 2023_05_31_170142) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "published_at"
     t.integer "user_id", null: false
+    t.boolean "verified", default: false
     t.string "stripe_product_id"
     t.string "stripe_price_id"
-    t.boolean "verified", default: false
     t.boolean "removed_from_seller", default: false
     t.date "removed_at"
     t.index ["user_id"], name: "index_products_on_user_id"
@@ -88,6 +88,22 @@ ActiveRecord::Schema.define(version: 2023_05_31_170142) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wishlist_items", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "product_id", null: false
+    t.integer "wishlist_id", null: false
+    t.index ["product_id"], name: "index_wishlist_items_on_product_id"
+    t.index ["wishlist_id"], name: "index_wishlist_items_on_wishlist_id"
+  end
+
+  create_table "wishlists", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
+  end
+
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "orders", "carts"
@@ -95,4 +111,7 @@ ActiveRecord::Schema.define(version: 2023_05_31_170142) do
   add_foreign_key "products", "users"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
+  add_foreign_key "wishlist_items", "products"
+  add_foreign_key "wishlist_items", "wishlists"
+  add_foreign_key "wishlists", "users"
 end

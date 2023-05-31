@@ -58,6 +58,7 @@
           <% if can? :buy, product%>
           <td><%=button_to "Add to cart", cart_items_path(:product_id => product.id)%></td>
           <% end %>
+          <td><%= link_to "Add to wishlist", add_to_wishlist_path(product.id) %></td>
           <% end%>
         </tr>
         <% end %>
