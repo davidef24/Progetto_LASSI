@@ -36,6 +36,11 @@
     <%= form.number_field :availability %>
   </div>
 
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
   <% if can?(:manage, product) %>
     <div class="field">  
     <%= form.label :verified %>

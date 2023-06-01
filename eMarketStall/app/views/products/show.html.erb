@@ -30,5 +30,11 @@
   <%= @product.availability %>
 </p>
 
+<p>
+<% (0...@product.images.count).each do |i| %>
+  <%= image_tag(@product.thumbnail(i)) %>
+<% end %>
+</p>
+
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

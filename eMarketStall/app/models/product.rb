@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
     # Associazioni
-  #has_many_attached :images
+  has_many_attached :images
   has_many :reviews
   belongs_to :user
   after_create :set_stripe_product_id
@@ -15,6 +15,10 @@ class Product < ApplicationRecord
   validates :category, inclusion: { in: ['Chains', 'Vases', 'Painting', 'Plates', 'Wood processing'] }
   validates :availability, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :published_at, presence: true
+
+  def thumbnail(i)
+    return self.images[i].variant(resize: '300x300').processed
+  end
 
   private
 
