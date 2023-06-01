@@ -3,28 +3,26 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Data ordine</th>
-      <th scope="col">Costo ordine</th>
-      <th scope="col">Dettagli ordine</th>
+      <th scope="col">Id ordine</th>
+      <th scope="col">Titolo</th>
+      <th scope="col">Costo prodotto</th>
+      <th scope="col">Quantità</th>
+      <th scope="col">Data acquisto</th>
+      <th scope="col">Recensione</th>
     </tr>
   </thead>
   <tbody>
-    <% @user_for_orders.orders.each do |order| %>
-      <tr>
-        <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
-        <td><%= number_to_currency(order.cart.sub_total) %></td>
-        <td>
-         
-          <a class="" data-toggle="collapse" href="#orderDetails<%= order.id %>" role="button" aria-expanded="false" aria-controls="orderDetails<%= order.id %>">
-            <i class="fa-solid fa-plus"></i>
-          </a>
-          <div class="collapse" id="orderDetails<%= order.id %>">
-            <% order.cart.cart_items.each do |cart_item| %>
-              <p><%= cart_item.product.title %>, <%= cart_item.product.user.email %>, <%= cart_item.product.price %>, <%= cart_item.quantity %> </p>
-            <% end %>
-          </div>
-        </td>
-      </tr>
+<% @user_for_orders.orders.sort_by { |order| order.created_at }.reverse.each do |order| %>
+      <% order.cart.cart_items.each do |cart_item| %>
+          <tr>
+            <td><%= order.id %></td> 
+            <td><%= cart_item.product.title %></td> 
+            <td><%= cart_item.product.price %></td>
+            <td><%= cart_item.quantity %></td>
+            <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
+            <td><%= link_to 'Review the product', new_product_review_path(@current_user.id, cart_item.product.id) %></td>
+          </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

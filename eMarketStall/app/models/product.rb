@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
     # Associazioni
   #has_many_attached :images
+  has_many :reviews
   belongs_to :user
   after_create :set_stripe_product_id
 

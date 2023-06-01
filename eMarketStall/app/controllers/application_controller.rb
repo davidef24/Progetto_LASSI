@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
 
     def check_user_timeout
       if user_signed_in? && current_user.timeout_at.present? && current_user.timeout_at < Time.zone.now
+        
         # Timeout scaduto
         # Esegui le azioni necessarie, ad esempio effettuare il logout dell'utente o reimpostare il timeout
         sign_out(current_user)
@@ -46,7 +47,7 @@ class ApplicationController < ActionController::Base
         redirect_to new_user_session_path
       elsif user_signed_in?
         # Aggiorna il timeout ogni volta che l'utente compie un'azione
-        current_user.update(timeout_at: Time.zone.now + 15.minutes)
+        current_user.update(timeout_at: Time.zone.now + 7.days)
       end
     end
 end

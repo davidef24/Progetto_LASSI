@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     get 'my_products', to: 'users#my_products'
   end
 
+  resources :products, only: [] do
+    resources :reviews
+  end
+
   resources :users, only: [] do
     resources :orders, only: [:index]
   end
