@@ -28,12 +28,17 @@
 
   <div class="field">
     <%= form.label :category %>
-    <%= form.select :category, options_for_select(["Collane", "Vasi", "Pittura", "Piatti", "Lavorazione del legno"]) %>
+    <%= form.select :category, options_for_select(["Chains", "Vases", "Painting", "Plates", "Wood processing"]) %>
   </div>
 
   <div class="field">
     <%= form.label :availability %>
     <%= form.number_field :availability %>
+  </div>
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
   </div>
 
   <% if can?(:manage, product) %>

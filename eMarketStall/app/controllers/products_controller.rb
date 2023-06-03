@@ -58,6 +58,7 @@ class ProductsController < ApplicationController
     authorize! :update, @product
     respond_to do |format|
       if @product.update(product_params)
+        @product.save
         format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -94,7 +95,7 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :description, :price, :category, :availability, :verified)
+      params.require(:product).permit(:title, :description, :price, :category, :availability, :verified, images: [])
     end
 
     def authorize_product

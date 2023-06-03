@@ -5,7 +5,7 @@
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <p class="text-center d-flex justify-content-center align-items-center">
     <hr>
-    <%= link_to "Non hai un account? Registrati", new_registration_path(resource_name), class: "btn btn-success text-white font-weight-bold" %>
+    <%= link_to "If you don't have an account, sign up!", new_registration_path(resource_name), class: "btn btn-success text-white font-weight-bold" %>
   </p>
 <% end %>
 
@@ -17,7 +17,7 @@
       method: :post,
       data: {turbo: "false"} do |f| %>
       <div class="text-center">
-        Oppure <br>
+        Or <br>
         <%= f.submit "Login", type: "image", src: url_for("/assets/btn_google_signin_dark_pressed_web.png"), class: "img-fluid" %>
       </div>
     <% end %>

@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag 'nav' %>
     <%= javascript_pack_tag 'application' , 'data-turbolinks-track': 'reload'%>
@@ -30,19 +29,19 @@
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
             <li class="nav-item">
-                <%= link_to 'I miei ordini', user_orders_path(@current_user), class: 'nav-link' %>
+                <%= link_to 'My orders', user_orders_path(@current_user), class: 'nav-link' %>
               </li>
             <li class="nav-item">
-                <%= link_to 'Il mio carrello', cart_path(@current_cart), class: 'nav-link' %>
+                <%= link_to 'My cart', cart_path(@current_cart), class: 'nav-link' %>
               </li>
               <li class="nav-item">
-                <%= link_to 'La mia lista dei desideri', show_wishlist_path(@current_user), class: 'nav-link' %>
+                <%= link_to 'My wishlist', show_wishlist_path(@current_user), class: 'nav-link' %>
               </li>
               <li class="nav-item">
-                <%= link_to 'I miei prodotti', user_my_products_path(current_user), class: 'nav-link ' %>
+                <%= link_to 'My products', user_my_products_path(current_user), class: 'nav-link ' %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Il mio profilo', my_profile_path, class: 'nav-link ' %>
+                <%= link_to 'My profile', my_profile_path, class: 'nav-link ' %>
               </li>
             <% end %>
             <li class="nav-item">
@@ -61,7 +60,7 @@
   <p class="alert"><%= alert %></p>
     <% if user_signed_in? %>
       <% if current_user.present? && current_user.provider == "google_oauth2" && (current_user.città.blank? || current_user.num_telefono.blank? || current_user.cap_residenza.blank? || current_user.via_residenza.blank?) %>
-        <%= link_to 'Per effettuare acquisti, dovrai necessariamente inserire altri dati oltre quelli forniti da Google', edit_profile_path %>
+        <%= link_to 'To make purchases, you will necessarily need to enter other data in addiction to those provided by Google', edit_profile_path %>
       <% end %>
     <% end %>
     <%= yield %>

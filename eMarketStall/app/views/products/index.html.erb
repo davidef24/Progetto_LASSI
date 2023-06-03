@@ -6,7 +6,7 @@
   <div class="input-group">
     <%= f.text_field :search, placeholder: "Search products...", class: "form-control", style: "width: 300px"%>
     <div class="input-group-append">
-      <%= f.select :category, options_for_select(["Collane","Lavorazione del legno", "Piatti", "Pittura", "Vasi"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "custom-select" %>
+      <%= f.select :category, options_for_select(["Chains","Wood processing", "Plates", "Painting", "Vases"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "custom-select" %>
     </div>
     <div class="input-group-append">
       <%= f.submit "Search", class: "btn btn-primary" %>
@@ -70,4 +70,6 @@
 
 <br>
 
+<% if @current_user.roles_mask!=2 %>
 <%= link_to 'New Product', new_product_path %>
+<% end %>
