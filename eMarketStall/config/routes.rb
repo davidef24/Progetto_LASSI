@@ -17,14 +17,14 @@ Rails.application.routes.draw do
   get 'orders/success' => "orders#success", as: "payment_success"
   get 'orders/cancel' => "orders#cancel", as: "payment_cancel"
 
-  get 'carts/:id' => "carts#show", as: "cart"
-  delete 'carts/:id' => "carts#destroy"
+  get 'carts/:cart_id' => "carts#show", as: "cart"
+  delete 'carts/:cart_id' => "carts#destroy"
 
-  post 'cart_items/:id/increment' => "cart_items#increment_number", as: "cart_item_increase"
-  post 'cart_items/:id/decrease' => "cart_items#decrease_number", as: "cart_item_decrease"
+  post 'cart_items/:cart_item_id/increment' => "cart_items#increment_number", as: "cart_item_increase"
+  post 'cart_items/:cart_item_id/decrease' => "cart_items#decrease_number", as: "cart_item_decrease"
   post 'cart_items' => "cart_items#create"
-  get 'cart_items/:id' => "cart_items#show", as: "cart_item"
-  delete 'cart_items/:id' => "cart_items#destroy"
+  get 'cart_items/:cart_item_id' => "cart_items#show", as: "cart_item"
+  delete 'cart_items/:cart_item_id' => "cart_items#destroy"
   
   #only: [] to generate just routes for products
   #users routes handled by devise
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: [] do
-    resources :reviews
+    resources :reviews, except: :update
   end
 
   resources :users, only: [] do
@@ -46,6 +46,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   } 
+
+  patch '/products/:product_id/reviews/:id', to: 'reviews#update', as: 'personalized_product_review'
+  get '/user_reviews/:user_id', to: 'reviews#user_reviews', as: 'user_reviews'
 
   devise_scope :user do  
     get 'my_profile', to: 'users/registrations#show', as: :my_profile

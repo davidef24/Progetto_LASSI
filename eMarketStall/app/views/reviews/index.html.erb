@@ -13,14 +13,12 @@
   </thead>
 
   <tbody>
-    <% @p.reviews.each do |review| %>
+    <% @pippo.reviews.each do |review| %>
       <tr>
         <td><%= review.rating %></td>
         <td><%= review.content %></td>
-        <td><%= review.user %></td>
-        <td><%= link_to 'Show', review %></td>
-        <td><%= link_to 'Edit', edit_review_path(review) %></td>
-        <td><%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= review.user.email %></td>
+      
       </tr>
     <% end %>
   </tbody>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_31_170142) do
+ActiveRecord::Schema.define(version: 2023_05_31_195553) do
 
   create_table "cart_items", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 2023_05_31_170142) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "timeout_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "roles_mask"

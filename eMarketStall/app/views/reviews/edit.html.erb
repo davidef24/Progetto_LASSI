@@ -1,0 +1,3 @@
+<h1>Update your review for <%= @product.title %>, sold by <%= @product.user.email %></h1>
+
+<%= render partial: 'reviews/form', locals: { review: @review } %>

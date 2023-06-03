@@ -11,6 +11,7 @@
       <th>Price</th>
       <th>Category</th>
       <th>Availability</th>
+      <th>Reviews</th>
     </tr>
   </thead>
   <tbody>
@@ -37,7 +38,9 @@
             <% if can? :update, product || can?(:manage, product) %>
             <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
+            <td><%= link_to 'Show', product_path(product) %></td>
         <% end %>
+        <td><%= link_to 'View product reviews', product_reviews_path(product) %></td>
       </tr>
     <% end %>
   </tbody>

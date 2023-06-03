@@ -4,7 +4,6 @@ class CartItemsController < ApplicationController
       # Find associated product and current cart
       added_product_id = params[:product_id]
       added_product = Product.find(added_product_id)
-      puts "VOGLIO AGGIUNGERE AL CARRELLO" + added_product.title
 
     
       #@current_cart from app controller
@@ -14,7 +13,7 @@ class CartItemsController < ApplicationController
         @cart_item = @current_cart.cart_items.find_by(:product_id => added_product_id)
         # Iterate the cart_item's quantity by one
         if (@cart_item.quantity + 1) > @cart_item.product.availability
-          flash[:notice] = "Impossibile aggiungere ulteriori quantità di #{added_product.title}. La disponibilità massima è stata raggiunta."
+          flash[:notice] = "It's not possible to add additional quantities of #{added_product.title}. The maximum availability has been reached."
           redirect_to cart_path(@current_cart)
           return
         end
@@ -31,9 +30,9 @@ class CartItemsController < ApplicationController
       end
   end
   def increment_number
-      @cart_item = CartItem.find(params[:id])
+      @cart_item = CartItem.find(params[:cart_item_id])
       if (@cart_item.quantity + 1) > @cart_item.product.availability
-        flash[:notice] = "Impossibile aggiungere ulteriori quantità di #{@cart_item.product.title}. La disponibilità massima è stata raggiunta."
+        flash[:notice] = "It's not possible to add additional quantities of #{@cart_item.product.title}. The maximum availability has been reached."
         redirect_to cart_path(@current_cart)
         return
       end
@@ -43,7 +42,7 @@ class CartItemsController < ApplicationController
   end
     
   def decrease_number
-      @cart_item = CartItem.find(params[:id])
+      @cart_item = CartItem.find(params[:cart_item_id])
       if @cart_item.quantity > 1
         @cart_item.quantity -= 1
       end
@@ -52,7 +51,7 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-      @cart_item = CartItem.find(params[:id])
+      @cart_item = CartItem.find(params[:cart_item_id])
       if @cart_item.destroy
         redirect_to cart_path(@current_cart)
       else 
