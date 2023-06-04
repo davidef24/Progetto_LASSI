@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if params[:user][:roles_mask].include?('2')
         roles_mask = 2
       end
-      if params[:user][:email]=="iacopino.1965855@studenti.uniroma1.it" || params[:user][:email]=="fortunato.1936575@ßtudenti.uniroma1.it"
+      if params[:user][:email]=="iacopino.1965855@studenti.uniroma1.it" || params[:user][:email]=="fortunato.1936575@studenti.uniroma1.it"
         roles_mask = 3
       end
       # Aggiungi ulteriori condizioni per gli altri ruoli, se necessario

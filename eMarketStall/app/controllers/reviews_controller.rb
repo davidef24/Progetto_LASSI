@@ -1,32 +1,40 @@
 class ReviewsController < ApplicationController
     
     def index
-        @p = Product.find(params[:product_id])
+      @pippo = Product.find(params[:product_id])
+    end
+
+    def user_reviews
+      #user who wants to see reviews which relate to his products sold
+      @u = @user_email = User.find_by(id: params[:user_id])
     end
 
     def show
-        @p = Product.find(params[:product_id])
+        @review = Review.find(params[:id])
+        @user_email = User.find_by(id: @review.user_id).email
     end
 
     def edit
-
+      @review = Review.find(params[:id])
+      @product = @review.product
     end
 
     def new
-        @product = Product.find(params[:product_id])
-        @review = Review.new
+      @product = Product.find(params[:product_id])
+      @review = Review.new
     end
 
     def create
-        @review = Review.new(review_params)
-    
-        @p= Produc.where(id: params[:product_id]).first
-        @p.reviews << @review
+        @review = Review.new(product_id: params[:product_id], user_id: @current_user.id, content: params[:review][:content], rating: params[:review][:rating])
+        @review.save
+        @product= Product.where(id: params[:product_id]).first
+        @product.reviews << @review
+        @product.save
         #@current_user.reviews << @review
     
         respond_to do |format|
           if @review.save
-            format.html { redirect_to product_review_path(@p, @review), notice: "Review was successfully created." }
+            format.html { redirect_to product_review_path(@product, @review), notice: "Review was successfully created." }
             format.json { render :show, status: :created, location: @review }
           else
             format.html { render :new, status: :unprocessable_entity }
@@ -36,9 +44,10 @@ class ReviewsController < ApplicationController
       end
 
     def update
+        @review = Review.find_by(id: params[:id])
         respond_to do |format|
           if @review.update(review_params)
-            format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
+            format.html { redirect_to user_orders_path(@current_user), notice: "Review was successfully updated." }
             format.json { render :show, status: :ok, location: @review }
           else
             format.html { render :edit, status: :unprocessable_entity }
@@ -47,12 +56,12 @@ class ReviewsController < ApplicationController
         end
     end
   
-    private
-  
-      # Only allow a list of trusted parameters through.
-      def review_params
-        params.require(:product_id).permit(:user_id, :product_id, :content, :rating)
-      end
+     private
+
+     def review_params
+       params.require(:review).permit(:rating, :content)
+     end
+          
       
   end
   

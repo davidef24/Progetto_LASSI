@@ -29,8 +29,7 @@ class Product < ApplicationRecord
   def set_stripe_product_id 
     product = Stripe::Product.create(name: self.title)
     # * 100 beceause Stipe amounts are in cents unit
-    price = Stripe::Price.create(product: product, unit_amount: (self.price).to_i * 100, currency: 'eur')
-    puts price
+    price = Stripe::Price.create(product: product, unit_amount: (self.price * 100).to_i, currency: 'eur')
     update(stripe_product_id: product.id, stripe_price_id: price.id)
   end
   def set_unverified

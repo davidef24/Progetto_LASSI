@@ -19,8 +19,8 @@
       <!-- See cartItem section below for explanation of cart_item links -->
       <ul>
         <li>
-          <%= link_to "Add one", cart_item_increase_path(id: cart_el), method: :post %>
-          <%= link_to "Reduce one", cart_item_decrease_path(id: cart_el), method: :post %>
+          <%= link_to "Add one", cart_item_increase_path(cart_item_id: cart_el), method: :post %>
+          <%= link_to "Reduce one", cart_item_decrease_path(cart_item_id: cart_el), method: :post %>
         </li>
         <li>
           <%= link_to "Remove item", cart_item_path(cart_el), method: :delete %>

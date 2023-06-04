@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
     before_action :set_current_user, :set_current_cart
-    before_action :check_user_timeout
     before_action :check_wishlist
 
     rescue_from CanCan::AccessDenied do |exception|
@@ -37,17 +36,4 @@ class ApplicationController < ActionController::Base
       
     end
 
-    def check_user_timeout
-      if user_signed_in? && current_user.timeout_at.present? && current_user.timeout_at < Time.zone.now
-        
-        # Timeout scaduto
-        # Esegui le azioni necessarie, ad esempio effettuare il logout dell'utente o reimpostare il timeout
-        sign_out(current_user)
-        flash[:alert] = "Timeout scaduto. Effettua nuovamente l'accesso."
-        redirect_to new_user_session_path
-      elsif user_signed_in?
-        # Aggiorna il timeout ogni volta che l'utente compie un'azione
-        current_user.update(timeout_at: Time.zone.now + 7.days)
-      end
-    end
 end

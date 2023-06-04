@@ -6,18 +6,18 @@
 </p>
 
 <p>
-  <strong>Comments:</strong>
-  <%= @review.rating %>
+  <strong>Content:</strong>
+  <%= @review.content %>
 </p>
 
 <p>
-  <strong>Moviegoer:</strong>
-  <%= @review.rating %>
+  <strong>User:</strong>
+  <%= @user_email %>
 </p>
 
 <p>
-  <strong>Movie:</strong>
-  <%= @review.rating %>
+  <strong>Product:</strong>
+  <%= @review.product.title %>
 </p>
 
-<%= link_to 'Back', product_path %>
+<%= link_to 'Back', root_path %>

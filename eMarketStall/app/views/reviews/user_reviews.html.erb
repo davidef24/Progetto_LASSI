@@ -1,0 +1,24 @@
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Reviewer</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Content</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @u.products.each do |product| %>
+      <% product.reviews.each do |review| %>
+        <tr>
+          <td><%= review.product.title %></td>
+          <td><%= review.user.email %></td>
+          <td><%= review.rating %></td>
+          <td><%= review.content %></td>
+          <td><%= review.created_at.strftime("%d/%m/%Y") %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
