@@ -8,14 +8,13 @@ class WishlistItemsController < ApplicationController
             if p.id==added_product.id
                 flash[:notice]="Product's already in wishlist"
                 already_added=true
-                redirect_to root_path
             end
         end
         if !already_added
             new_wishlist_item=WishlistItem.create(wishlist_id: @wl_user.id, product_id: added_product.id)
             new_wishlist_item.save
-            redirect_to show_wishlist_path(@wl_user)
         end
+        redirect_to request.referrer
     end
 
     def remove
@@ -29,6 +28,11 @@ class WishlistItemsController < ApplicationController
                 flash[:notice]="Product correctly removed from wishlist"
             end
         end
-        redirect_to show_wishlist_path(@wl_user)
+        view_name="#{controller_name}/#{action_name}"
+        if view_name!="wishlist_items/remove"
+            redirect_to root_path
+        else
+            redirect_to show_wishlist_path(@wl_user)
+        end
     end
 end
