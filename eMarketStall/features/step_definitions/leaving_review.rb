@@ -1,14 +1,14 @@
 Given("I am a logged in buyer") do
     # Implement the logic to simulate an authenticated buyer
     @seller = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova')
-    prod = Product.create(user_id: User.last.id, title: 'Tavolo', price: 30, category: 'Lavorazione del legno', description: 'Per 4 posti a sedere', availability: 3)
+    prod = Product.create(user_id: User.last.id, title: 'Tavolo', price: 30, category: 'Wood processing', description: 'Per 4 posti a sedere', availability: 3)
 
 
     visit new_user_session_path
     user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Accedi'
+    click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
   end
@@ -18,7 +18,7 @@ Given("I am a logged in buyer") do
     product = Product.last
     cart_item = CartItem.create(product_id: product.id, cart_id: Cart.last.id, quantity: 1)
     order = Order.create(user_id: User.last.id, cart_id: Cart.last.id)
-    click_link("I miei ordini")
+    click_link("My orders")
     expect(page).to have_content("#{product.title}")
   end
   
@@ -50,8 +50,8 @@ Given("I am a logged in buyer") do
     visit new_user_session_path
     fill_in 'Email', with: @seller.email
     fill_in 'Password', with: @seller.password
-    click_button 'Accedi'
-    click_link('Il mio profilo')
+    click_button 'Sign in'
+    click_link('My profile')
     click_link('View how your products have been reviewed')
     last_rev = Review.last
     buyer = User.last

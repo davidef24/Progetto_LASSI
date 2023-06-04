@@ -6,14 +6,14 @@ Given("I am a logged in user and there are products for sale") do
     # Implement the logic to simulate a registered seller
     # Simulate a logged-in user which adds a new prodouct for sale
     user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova')
-    prod = Product.create(user_id: User.last.id, title: 'Test product', price: 19, category: 'Lavorazione del legno', description: 'Its just a test', availability: 3)
-
+    prod = Product.create(user_id: User.last.id, title: 'Test product', price: 19, category: 'Wood processing', description: 'Its just a test', availability: 3)
+    
 
     visit new_user_session_path
-    user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Accedi'
+    user2 = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
+    fill_in 'Email', with: user2.email
+    fill_in 'Password', with: user2.password
+    click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
 
