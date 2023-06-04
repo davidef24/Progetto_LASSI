@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="font-weight-bold">Products for sale</h1>
+<h1 style="font-family: 'Poppins', sans-serif;">Products for sale</h1>
 
 <%= form_with(url: products_path, method: "get", id: "search-form", class: "form-inline") do |f| %>
-  <div class="input-group">
-    <%= f.text_field :search, placeholder: "Search products...", class: "form-control", style: "width: 300px"%>
+  <div class="input-group mb-3">
+    <%= f.text_field :search, placeholder: "Search products...", class: "form-control", style: "width: 600px"%>
     <div class="input-group-append">
       <%= f.select :category, options_for_select(["Chains","Wood processing", "Plates", "Painting", "Vases"], params[:category]), {include_blank: "Category"}, id: "category-select", class: "custom-select" %>
     </div>
@@ -14,58 +14,71 @@
   </div>
 <% end %>
 
+<%= form_with(url: products_path, method: "get", id: "order-by", class: "form-inline") do |s| %>
+  <div class="input-group mb-3">
+    <%= s.select :sort, options_for_select(["title", "price"], params[:sort]), {include_blank: "Order by"}, id: "sort-select", class: "form-select" %>
+  </div>
+<% end %>
 
 <% if @products.empty? %>
   <div class="alert alert-warning mt-3">
     <p class="font-weight-bolder">No products found</p>
   </div>
 <% else %>
-<table>
-  <thead>
-    <tr>
-      <th>Verified</th>
-      <th><%= link_to "Title", products_path(sort: "title") %></th>
-      <th>Description</th>
-      <th><%= link_to "Price", products_path(sort: "price") %></th>
-      <th><%= link_to "Category", products_path(sort: "category") %></th>
-      <th>Availability</th>
-      <th><%= link_to "Release date", products_path(sort: "published_at") %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <% if product.category==@category || @category.blank? %>
-       <%if product.removed_from_seller == false %>
-        <tr>
-          <% if product.availability > 0 && product.user_id != @current_user.id%>
-          <% if product.verified %>
-          <td><span style="color: green; font-size: 20px;">&#x2713;</span></td>
-          <% else %>
-          <td><span style="color: red; font-size: 20px;">&#x2717;</span></td>
-          <% end %>
-          <td><%= product.title %></td>
-          <td><%= product.description %></td>
-          <td><%= product.price %></td>
-          <td><%= product.category %></td>
-          <td><%= product.availability %></td>
-          <td><%= product.published_at %></td>
-          <td><%= link_to 'Show', product %></td>
-          <% if can?(:manage, product) %>
-            <td><%= link_to 'Edit', edit_product_path(product) %></td>
-            <% end %>
-          <% if can? :buy, product%>
-          <td><%=button_to "Add to cart", cart_items_path(:product_id => product.id)%></td>
-          <% end %>
-          <td><%= link_to "Add to wishlist", add_to_wishlist_path(product.id) %></td>
-          <% end%>
-        </tr>
-        <% end %>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+  <div class="container">
+  <% @products.each do |product| %>
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <div class="card" style="width: 100%;">
+          <div class="row">
+            <div class="col-md-3">
+              <% if product.images.count!=0 %>
+              <%= image_tag(product.thumbnail(0)) %>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <div>
+                  <h1 class="card-title"><%= product.title %></h5>
+                  <h5 class="card-text"><%= product.description %></p>
+                  <h3 class="card-text"><%= "€"+product.price.to_s+"0" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card-body d-flex flex-column justify-content-end align-items-center">
+                <div>
+                  <%= link_to cart_items_path(:product_id => product.id), method: :post do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" id="cart"><path fill="none" d="M0 0h48v48H0zm36.62 12L31.1 22z"></path><path d="M22 18h4v-6h6V8h-6V2h-4v6h-6v4h6v6zm-8 18c-2.21 0-3.98 1.79-3.98 4s1.77 4 3.98 4 4-1.79 4-4-1.79-4-4-4zm20 0c-2.21 0-3.98 1.79-3.98 4s1.77 4 3.98 4 4-1.79 4-4-1.79-4-4-4zm-19.65-6.5c0-.09.02-.17.06-.24l1.8-3.26h14.9c1.5 0 2.81-.83 3.5-2.06l7.72-14.02L38.83 8h-.01l-2.21 4-5.51 10H17.07l-.26-.54L12.32 12l-1.9-4-1.89-4H2v4h4l7.2 15.17-2.71 4.9c-.31.58-.49 1.23-.49 1.93 0 2.21 1.79 4 4 4h24v-4H14.85c-.28 0-.5-.22-.5-.5z"></path></svg>
+                  <% end %>
+                  <br>
+                  <br>
+                  <% wl_user=Wishlist.find_by(user_id: @current_user.id) %>
+                  <% found=false %>
+                  <% wl_user.wishlist_items.each do |wl_item| %>
+                    <% if wl_item.product.id==product.id %>
+                      <% found=true %>
+                      <% break %>
+                    <% end %>
+                  <% end %>
+                  <% if !found %>
+                    <%= link_to add_to_wishlist_path(product.id) do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 512 512" id="heart"><path d="M349.6 64c-36.4 0-70.718 16.742-93.6 43.947C233.117 80.742 198.8 64 162.4 64 97.918 64 48 114.221 48 179.095c0 79.516 70.718 143.348 177.836 241.694L256 448l30.164-27.211C393.281 322.442 464 258.61 464 179.095 464 114.221 414.082 64 349.6 64zm-80.764 329.257l-4.219 3.873-8.617 7.773-8.616-7.772-4.214-3.869c-50.418-46.282-93.961-86.254-122.746-121.994C92.467 236.555 80 208.128 80 179.095c0-22.865 8.422-43.931 23.715-59.316C118.957 104.445 139.798 96 162.4 96c26.134 0 51.97 12.167 69.11 32.545L256 157.661l24.489-29.116C297.63 108.167 323.465 96 349.6 96c22.603 0 43.443 8.445 58.686 23.778C423.578 135.164 432 156.229 432 179.095c0 29.033-12.467 57.459-40.422 92.171-28.784 35.74-72.325 75.709-122.742 121.991z"></path></svg>
+                    <% end %>
+                  <% else %>
+                    <%= link_to remove_from_wishlist_path(product.id), method: :delete do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" id="heart" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path></svg>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
 <% end %>
 
 <br>
@@ -73,3 +86,12 @@
 <% if @current_user.roles_mask!=2 %>
 <%= link_to 'New Product', new_product_path %>
 <% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    const select=document.getElementById("sort-select");
+    select.addEventListener("change", function(){
+      document.getElementById("order-by").submit();
+    });
+  });
+</script>
