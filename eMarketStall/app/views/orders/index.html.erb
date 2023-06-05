@@ -21,10 +21,10 @@
             <td><%= cart_item.quantity %></td>
             <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
             <% if cart_item.product.reviews.exists?(user_id: @current_user.id) %>
-              <% review = cart_item.product.reviews.find_by(user_id: @current_user.id) %>
+              <%= cart_item.product.reviews.find_by(user_id: @current_user.id) %>
               <td><%= link_to 'Update your opinion', edit_product_review_path(review.product_id, review.id) %></td>
             <% else %>
-              <td><%= link_to 'Review the product', new_product_review_path(@current_user.id, :product_id => cart_item.product.id) %></td>
+              <td><%= link_to 'Review the product', new_product_review_path(:current_user_id => @current_user.id, :product_id => cart_item.product.id) %></td>
             <% end %>
           </tr>
       <% end %>

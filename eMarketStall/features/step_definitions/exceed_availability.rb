@@ -24,7 +24,7 @@ Given("I am a logged in user and have a product in the cart") do
     click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
-    click_button('Add to cart')
+    click_link('cart-link')
   end
   
   When("I click the {string} link for the product multiple times exceeding its availability") do |link_text|

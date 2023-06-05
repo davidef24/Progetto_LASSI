@@ -1,12 +1,12 @@
 class ReviewsController < ApplicationController
-    
+    #index reviews of a product
     def index
-      @pippo = Product.find(params[:product_id])
+      @product = Product.find(params[:product_id])
     end
 
+    #index reviews of all products sold by a user
     def user_reviews
-      #user who wants to see reviews which relate to his products sold
-      @u = @user_email = User.find_by(id: params[:user_id])
+      @user_reviews = @user_email = User.find_by(id: params[:user_id])
     end
 
     def show
@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
     end
 
     def create
-        @review = Review.new(product_id: params[:product_id], user_id: @current_user.id, content: params[:review][:content], rating: params[:review][:rating])
+        @review = Review.new(product_id: params[:product_id], user_id: params[:current_user_id], content: params[:review][:content], rating: params[:review][:rating])
         @review.save
         @product= Product.where(id: params[:product_id]).first
         @product.reviews << @review

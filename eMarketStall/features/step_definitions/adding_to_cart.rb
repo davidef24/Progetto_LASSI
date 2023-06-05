@@ -20,8 +20,8 @@ Given("I am a logged in user and there are products for sale") do
     #simulating our cart logic
 end
 
-When("I click the button which says {string}") do |button_text|
-  click_button(button_text)
+When("I click the link with id {string}") do |button_text|
+  click_link(button_text)
 end
 
 

@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @u.products.each do |product| %>
+    <% @user_reviews.products.each do |product| %>
       <% product.reviews.each do |review| %>
         <tr>
           <td><%= review.product.title %></td>

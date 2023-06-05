@@ -8,7 +8,7 @@ Given("I am a logged in user and i'm in the  root page") do
   user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Cognome', città: 'Milano')
   fill_in 'Email', with: user.email
   fill_in 'Password', with: user.password
-  click_button 'Accedi'
+  click_button 'Sign in'
   expect(page).to have_content('Signed in successfully.') # Expectation for success message
   expect(page).to have_current_path(root_path)
   # Ensure the user is on the root page

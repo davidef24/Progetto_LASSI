@@ -2,7 +2,7 @@ Feature: Adding a new product to the cart
 
 Scenario: Buyer adds a new product to cart
   Given I am a logged in user and there are products for sale
-  When I click the button which says "Add to cart" 
+  When I click the link with id "cart-link" 
   Then I should be redirected to my cart page
   And I should see the added product in the cart list
   And the quantity of the product in the cart should be 1

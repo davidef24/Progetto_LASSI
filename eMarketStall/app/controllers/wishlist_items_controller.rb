@@ -1,4 +1,5 @@
 class WishlistItemsController < ApplicationController
+    
     def add
         id=params[:id]
         added_product=Product.find_by(id: id)
