@@ -9,6 +9,6 @@ class CartsController < ApplicationController
   #this will trigger in ApplicationController (method set_current_cart:line 14) the creation of a new cart, which initially will be empty
   def destroy
     session[:cart_id] = nil
-    redirect_to root_path
+    redirect_to cart_path(@current_cart)
   end
 end
