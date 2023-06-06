@@ -1,6 +1,7 @@
+<!--
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <h1 class="card-title text-center font-weight-bold">My profile</h1>
@@ -19,5 +20,53 @@
     </div>
   </div>
 </div>
-
-
+-->
+<h3>My profile</h3>
+<br>
+<h1><%= @user.nome+" "+@user.cognome %></h1>
+<div class="row align-items-center">
+  <div class="col-md-6 justify-content-start">
+    <div class="row">
+      <div class="p-4">
+        <img src="https://www.sognipedia.it/wp-content/uploads/2011/08/colore-nero-sognare-significato-interpretazione-numeri.png">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 p-5">
+    <% if can? :see, Product %>
+      <div class="row">
+        <div class="col-md-8">
+          <h4><%= link_to 'View how your products have been reviewed', user_reviews_path(:user_id => @user.id) %></h4>
+        </div>
+        <div class="col-md-4">
+          <h4>stelle</h4>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+    <div class="row">
+      <div class="col-md-12">
+        <h4><%= link_to 'Modify profile', edit_profile_path %></h4>
+      </div>
+    </div>
+    <% if can? :see, Product %>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <h4><%= link_to 'My products', user_my_products_path(current_user) %></h4>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+    <% if can? :see, Product %>
+      <div class="row">
+        <div class="col-md-6 justify-content-center">
+          <h4>Add a product</h4>
+        </div>
+        <div class="col-md-6 justify-content-start">
+          <%= link_to 'New Product', new_product_path, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

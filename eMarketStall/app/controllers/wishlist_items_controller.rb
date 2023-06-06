@@ -16,7 +16,6 @@ class WishlistItemsController < ApplicationController
             new_wishlist_item=WishlistItem.create(wishlist_id: @wl_user.id, product_id: added_product.id)
             new_wishlist_item.save
         end
-        puts "--------------------"+request.referrer.to_s+"--------------------------"
         redirect_to show_wishlist_path(@wl_user)
     end
 

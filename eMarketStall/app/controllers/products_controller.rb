@@ -16,8 +16,6 @@ class ProductsController < ApplicationController
       @products=Product.order(:title)
     elsif params[:sort]=="price"
       @products=Product.order(:price)
-    elsif params[:sort]=="category"
-      @products=Product.order(:category)
     end
   end
 
