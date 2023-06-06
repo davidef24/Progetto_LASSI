@@ -5,7 +5,7 @@ Given("I am a logged in buyer") do
 
 
     visit new_user_session_path
-    user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
+    user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona', roles_mask: 2)
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'
@@ -36,6 +36,7 @@ Given("I am a logged in buyer") do
   And("I click the {string} button for reviews") do |button_text|
     # Implement the logic to click the "Submit Review" button or an appropriate button
     click_button(button_text)
+    puts page.body
   end
   
   Then("I should see a success message confirming my review has been submitted") do

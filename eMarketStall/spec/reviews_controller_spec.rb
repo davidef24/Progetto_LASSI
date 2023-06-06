@@ -24,19 +24,20 @@ RSpec.describe ReviewsController, type: :controller do
         context "with valid parameters" do
           it "creates a new review, associates it with the product, and redirects to the review's page" do
             puts "\nRunning test: creates a new review, associates it with the product, and redirects to the review's page"
-            review_attributes = { content: "Great product!", rating: 5 }
-            post :create, params: { product_id: product.id, review: review_attributes, current_user_id: user_2.id }
+            review_attributes = { content: "Great product!", rating: 5, current_user_id: user_2.id }
+            post :create, params: { product_id: product.id, review: review_attributes}
             review = Review.last
             expect(review.product).to eq(product)
             expect(response).to redirect_to(product_review_path(product, review))
           end
 
-          it "creates a new review and it is visible in seller's reviews page" do
-            puts "\nRunning test: creates a new review, associates it with the product, and redirects to the review's page"
-            review_attributes = { content: "Great product!", rating: 5 }
-            post :create, params: { product_id: product.id, review: review_attributes, current_user_id: user_2.id }
+          it "creates a new review visible in seller's reviews page" do
+            puts "\nRunning test: creates a new review visible in seller's reviews page"
+            review_attributes = { content: "Great product!", rating: 5, current_user_id: user_2.id }
+            post :create, params: { product_id: product.id, review: review_attributes}
             #in this case seller of product reviewed is user_1
-            get :user_reviews, params: { user_id: user_1.id }
+            puts user_1.products.where(id: product.id).first.reviews.to_s
+            expect(user_1.products.where(id: product.id).first.reviews).to include(Review.last)
             
           end
         end
@@ -44,7 +45,8 @@ RSpec.describe ReviewsController, type: :controller do
         context "with invalid parameters" do
             it "does not create a new review and re-renders the 'new' template" do
               puts "\nRunning test: does not create a new review and re-renders the 'new' template"
-              review_attributes = { content: "Great product!", rating: 6}
+              #rating can be a number in 1..5
+              review_attributes = { content: "Great product!", rating: 15}
               post :create, params: { product_id: product.id, review: review_attributes, current_user_id: user_2.id }
               expect(Review.count).to eq(0)
               expect(response).to render_template(:new)

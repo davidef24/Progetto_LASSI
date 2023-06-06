@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
     @session = Stripe::Checkout::Session.create({
         customer: @current_user.stripe_customer_id,
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'paypal', 'alipay'],
         line_items: line_items_json,
         mode: 'payment',
         success_url: payment_success_url + "?session_id={CHECKOUT_SESSION_ID}",

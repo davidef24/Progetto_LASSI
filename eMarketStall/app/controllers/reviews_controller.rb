@@ -25,8 +25,11 @@ class ReviewsController < ApplicationController
     end
 
     def create
-        @review = Review.new(product_id: params[:product_id], user_id: params[:current_user_id], content: params[:review][:content], rating: params[:review][:rating])
-        @review.save
+        @review = Review.new(product_id: params[:product_id], user_id: params[:review][:current_user_id], content: params[:review][:content], rating: params[:review][:rating])
+        if !@review.save
+          flash[:error] = "Error in creating review"
+          puts @review.errors.full_messages
+        end
         @product= Product.where(id: params[:product_id]).first
         @product.reviews << @review
         @product.save
@@ -50,7 +53,7 @@ class ReviewsController < ApplicationController
             format.html { redirect_to user_orders_path(@current_user), notice: "Review was successfully updated." }
             format.json { render :show, status: :ok, location: @review }
           else
-            format.html { render :edit, status: :unprocessable_entity }
+            format.html { redirect_to user_orders_path(@current_user), alert: "There was a prooblem with the update of your review, please retry." }
             format.json { render json: @review.errors, status: :unprocessable_entity }
           end
         end
@@ -59,7 +62,7 @@ class ReviewsController < ApplicationController
      private
 
      def review_params
-       params.require(:review).permit(:rating, :content)
+       params.require(:review).permit(:rating, :content, :current_user_id)
      end
           
       

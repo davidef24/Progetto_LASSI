@@ -24,7 +24,7 @@
   <tbody>
     <% @wl_user.wishlist_items.each do |wishlist_item| %>
         <tr>
-          <% if wishlist_item.product.availability > 0 && wishlist_item.product.user_id != @current_user.id%>
+          <% if wishlist_item.product.availability > 0 && wishlist_item.product.user_id != @current_user.id && !wishlist_item.product.removed_from_seller%>
           <% if wishlist_item.product.verified %>
           <td><span style="color: green; font-size: 20px;">&#x2713;</span></td>
           <% else %>
