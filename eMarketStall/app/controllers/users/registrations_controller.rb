@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user = current_user
 
       if @user.update(user_params)
-        redirect_to root_path, notice: 'Profilo aggiornato con successo.'
+        redirect_to root_path, notice: 'Profile updated succesfully.'
       else
         render :edit_profile
       end
@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if params[:user][:roles_mask].include?('2')
         roles_mask = 2
       end
-      if params[:user][:email]=="iacopino.1965855@studenti.uniroma1.it" || params[:user][:email]=="fortunato.1936575@studenti.uniroma1.it"
+      if params[:user][:email]=="iacopino.admin@gmail.com" || params[:user][:email]=="fortunato.admin@gmail.com"
         roles_mask = 3
       end
       # Aggiungi ulteriori condizioni per gli altri ruoli, se necessario

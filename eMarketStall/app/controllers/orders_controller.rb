@@ -9,15 +9,21 @@ class OrdersController < ApplicationController
   end
 
   def success
-    if params[:session_id].present? 
+    session_id = params[:session_id]
+    if !session_id.nil? 
       @current_cart.decrease_quantity
       order = Order.create(user: @current_user, cart:@current_cart)
       order.save
       #after an order has completed, we create another cart
       session[:cart_id] = nil
+      @success_session = Stripe::Checkout::Session.retrieve(id: params[:session_id], expand: ['line_items'])
     else
-      redirect_to cancel_url, alert: "No info to display"
+      redirect_to cancel_url(session_id: session_id), alert: "No info to display"
     end
+  end
+
+  def cancel
+    @cancel_session = Stripe::Checkout::Session.retrieve(id: params[:session_id], expand: ['line_items'])
   end
 
   def create
@@ -31,7 +37,7 @@ class OrdersController < ApplicationController
         line_items: line_items_json,
         mode: 'payment',
         success_url: payment_success_url + "?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: payment_cancel_url,
+        cancel_url: payment_cancel_url + "?session_id={CHECKOUT_SESSION_ID}",
     })
     redirect_to @session.url
   end

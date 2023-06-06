@@ -9,36 +9,36 @@
             <%= render "devise/shared/error_messages", resource: resource %>
 
             <div class="mb-3">
-              <%= f.label :nome, class: "form-label font-weight-bold" %>
+              <%= f.label :nome, "Name", class: "form-label font-weight-bold" %>
               <%= f.text_field :nome, class: "form-control", id: "name", autocomplete: "off", onchange: "return nameIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :cognome, class: "form-label font-weight-bold" %>
+              <%= f.label :cognome, "Surname", class: "form-label font-weight-bold" %>
               <%= f.text_field :cognome, class: "form-control", id: "surname", autocomplete: "off", onchange: "return surnameIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :città, "Città di residenza", class: "form-label font-weight-bold" %>
+              <%= f.label :città, "City of residence", class: "form-label font-weight-bold" %>
               <%= f.text_field :città, class: "form-control", id: "city", autocomplete: "off", onchange: "return cityIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :via_residenza, "Via di residenza",class: "form-label font-weight-bold" %>
+              <%= f.label :via_residenza, "Street of residence",class: "form-label font-weight-bold" %>
               <%= f.text_field :via_residenza, class: "form-control", id: "residence", autocomplete: "off", onchange: "return residenceIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :cap_residenza, "CAP",class: "form-label font-weight-bold" %>
+              <%= f.label :cap_residenza, "Postal code",class: "form-label font-weight-bold" %>
               <%= f.text_field :cap_residenza, class: "form-control", id: "CAP", autocomplete: "off", onchange: "return CAPisValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :num_telefono, "Numero di telefono",class: "form-label font-weight-bold" %>
+              <%= f.label :num_telefono, "Phone number",class: "form-label font-weight-bold" %>
               <%= f.text_field :num_telefono, class: "form-control", id: "telephone", autocomplete: "off", onchange: "return telephoneIsValid();" %>
             </div>
 
-            <p class="font-weight-bold">Seleziona il tuo ruolo:</p>
+            <p class="font-weight-bold">Select your rule. You will be able to change it and have different interactions with the app based on the rule.</p>
             <div class="form-check">
               <%= f.radio_button :roles_mask, '1', checked: f.object.roles_mask.to_s == '1', class: "form-check-input", id: "seller" %>
               <%= f.label :roles_mask_seller, "Seller", class: "form-check-label" %>

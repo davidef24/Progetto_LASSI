@@ -5,27 +5,27 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h1 class="text-center">Aggiorna il tuo profilo</h1>
+          <h1 class="text-center">Update your profile</h1>
 
-          <%= form_with(model: @user, url: update_profile_path, method: :patch) do |form| %>
+          <%= form_with(model: @user, url: update_profile_path, method: :patch, html: {class: "needs-validation", novalidate: true}) do |form| %>
             <div class="form-group">
-              <%= form.label :città, class: "font-weight-bold" %>
-              <%= form.text_field :città, class: "form-control" %>
+              <%= form.label :città, "City of residence",  class: "font-weight-bold" %>
+              <%= form.text_field :città,  id: "city", class: "form-control", onchange: "return cityIsValid();" %>
             </div>
 
             <div class="form-group">
-              <%= form.label :num_telefono, "Numero di telefono", class: "font-weight-bold" %>
-              <%= form.text_field :num_telefono, class: "form-control" %>
+              <%= form.label :num_telefono, "Phone number", class: "font-weight-bold" %>
+              <%= form.text_field :num_telefono, id: "telephone", class: "form-control", onchange: "return telephoneIsValid();" %>
             </div>
 
             <div class="form-group">
-              <%= form.label :via_residenza, "Via di residenza", class: "font-weight-bold" %>
-              <%= form.text_field :via_residenza, class: "form-control" %>
+              <%= form.label :via_residenza, "Street of residence", class: "font-weight-bold" %>
+              <%= form.text_field :via_residenza, id: "residence", class: "form-control", onchange: "return residenceIsValid();"  %>
             </div>
 
             <div class="form-group">
-              <%= form.label :cap_residenza, "CAP", class: "font-weight-bold" %>
-              <%= form.text_field :cap_residenza, class: "form-control" %>
+              <%= form.label :cap_residenza, "Postal code", class: "font-weight-bold" %>
+              <%= form.text_field :cap_residenza, id: "CAP", class: "form-control", onchange: "return CAPisValid();"%>
             </div>
 
             <p>Seleziona il tuo ruolo:</p>
@@ -41,7 +41,7 @@
             <br>
 
             <div class="text-center">
-              <%= form.submit 'Aggiorna il profilo', class: "btn btn-primary" %>
+              <%= form.submit 'Update profile', class: "btn btn-primary", onclick: "return telephoneIsValid() && cityIsValid() && residenceIsValid() && CAPisValid();" %>
             </div>
           <% end %>
         </div>

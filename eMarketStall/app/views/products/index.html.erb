@@ -32,7 +32,7 @@
       <div class="col-md-12 d-flex justify-content-center">
         <div class="card" style="width: 100%;">
           <div class="row align-items-center">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <% if product.images.count!=0 %>
               <div class="p-4">
               <%= image_tag(product.thumbnail(0)) %>
@@ -49,7 +49,7 @@
               </div>
             </div>
             <% if can? :buy, product %>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="card-body d-flex flex-column justify-content-end align-items-center">
                 <div>
                   <%= link_to cart_items_path(:product_id => product.id), id: "cart-link", method: :post do %>

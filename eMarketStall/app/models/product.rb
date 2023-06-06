@@ -22,6 +22,10 @@ class Product < ApplicationRecord
     return self.images[i].variant(resize: '300x300').processed
   end
 
+  def thumbnail_bigger(i)
+    return self.images[i].variant(resize: '500x500').processed
+  end
+
   private
 
   def set_published_at
@@ -29,7 +33,8 @@ class Product < ApplicationRecord
   end
 
   def set_stripe_product_id 
-    product = Stripe::Product.create(name: self.title)
+    image_path = Rails.application.routes.url_helpers.rails_blob_path(self.images[0], only_path: true)
+    product = Stripe::Product.create(name: self.title, description: self.description)
     # * 100 beceause Stipe amounts are in cents unit
     price = Stripe::Price.create(product: product, unit_amount: (self.price * 100).to_i, currency: 'eur')
     update(stripe_product_id: product.id, stripe_price_id: price.id)
