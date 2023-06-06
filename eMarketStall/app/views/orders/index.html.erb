@@ -1,5 +1,11 @@
 <h1 class="text-center mb-4">My orders</h1>
 
+<% if @user_for_orders.orders.empty? %>
+  <div class="alert alert-warning mt-3">
+    <h6 class="font-weight-bolder">Your order list is empty</h6>
+    <p><%= link_to 'Check products added to your cart', cart_path(@current_cart) %>
+  </div>
+<% else %>
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
@@ -31,3 +37,4 @@
     <% end %>
   </tbody>
 </table>
+<% end %>

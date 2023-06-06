@@ -2042,6 +2042,11 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
 
+jquery@>=1.12.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.0.tgz#fe2c01a05da500709006d8790fe21c8a39d75612"
+  integrity sha512-umpJ0/k8X0MvD1ds0P9SfowREz2LenHsQaxSohMZ5OMNEU2r0tf8pdeEFTHMFxWVxKNyU9rTtK3CWzUCTKJUeQ==
+
 json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -3433,6 +3438,13 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     extend-shallow "^3.0.2"
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
+
+toastr@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/toastr/-/toastr-2.1.4.tgz#8b43be64fb9d0c414871446f2db8e8ca4e95f181"
+  integrity sha512-LIy77F5n+sz4tefMmFOntcJ6HL0Fv3k1TDnNmFZ0bU/GcvIIfy6eG2v7zQmMiYgaalAiUv75ttFrPn5s0gyqlA==
+  dependencies:
+    jquery ">=1.12.0"
 
 toidentifier@1.0.1:
   version "1.0.1"
