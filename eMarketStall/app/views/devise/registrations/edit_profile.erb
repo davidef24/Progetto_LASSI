@@ -5,21 +5,21 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h1 class="text-center">Aggiorna il tuo profilo</h1>
+          <h1 class="text-center">Update your profile</h1>
 
           <%= form_with(model: @user, url: update_profile_path, method: :patch) do |form| %>
             <div class="form-group">
-              <%= form.label :città, class: "font-weight-bold" %>
+              <%= form.label :città, "City of residence", class: "font-weight-bold" %>
               <%= form.text_field :città, class: "form-control" %>
             </div>
 
             <div class="form-group">
-              <%= form.label :num_telefono, "Numero di telefono", class: "font-weight-bold" %>
+              <%= form.label :num_telefono, "Telephone", class: "font-weight-bold" %>
               <%= form.text_field :num_telefono, class: "form-control" %>
             </div>
 
             <div class="form-group">
-              <%= form.label :via_residenza, "Via di residenza", class: "font-weight-bold" %>
+              <%= form.label :via_residenza, "Street of residence", class: "font-weight-bold" %>
               <%= form.text_field :via_residenza, class: "form-control" %>
             </div>
 
@@ -28,7 +28,7 @@
               <%= form.text_field :cap_residenza, class: "form-control" %>
             </div>
 
-            <p>Seleziona il tuo ruolo:</p>
+            <p>Select your role:</p>
             <div class="form-check">
               <%= form.radio_button :roles_mask, '1', checked: form.object.roles_mask.to_s == '1', class: "form-check-input" %>
               <%= form.label :roles_mask_seller, "Seller", class: "form-check-label font-weight-bold" %>
@@ -40,8 +40,22 @@
 
             <br>
 
+            <% if !@user.images.attached? %>
+              <div class="field">
+                <%= form.label :images, "Add your profile picture" %>
+                <%= form.file_field :images, multiple: false %>
+              </div>
+            <% else %>
+              <div class="field">
+                <%= form.label :images, "Modify your profile picture" %>
+                <%= form.file_field :images, multiple: false %>
+              </div>
+            <% end %>
+
+            <br>
+
             <div class="text-center">
-              <%= form.submit 'Aggiorna il profilo', class: "btn btn-primary" %>
+              <%= form.submit 'Update', class: "btn btn-primary" %>
             </div>
           <% end %>
         </div>

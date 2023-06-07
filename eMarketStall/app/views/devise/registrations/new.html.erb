@@ -38,6 +38,11 @@
               <%= f.text_field :num_telefono, class: "form-control", id: "telephone", autocomplete: "off", onchange: "return telephoneIsValid();" %>
             </div>
 
+            <div class="field">
+              <%= f.label :images, "Profile picture" %>
+              <%= f.file_field :images, multiple: false %>
+            </div>
+
             <p class="font-weight-bold">Seleziona il tuo ruolo:</p>
             <div class="form-check">
               <%= f.radio_button :roles_mask, '1', checked: f.object.roles_mask.to_s == '1', class: "form-check-input", id: "seller" %>

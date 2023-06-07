@@ -1,34 +1,15 @@
-<!--
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h1 class="card-title text-center font-weight-bold">My profile</h1>
-          <p>Name: <%= @user.nome %></p>
-          <p>Email: <%= @user.email %></p>
-          <p>Phone number: <%= @user.num_telefono %></p>
-          <p>Role: <%= @user.roles_mask %></p>
-          <p>City of residence: <%= @user.città %></p>
-          <p>Street of residence: <%= @user.via_residenza %></p>
-          <p>Postal code: <%= @user.cap_residenza %></p>
-
-          <%= link_to 'Modify profile', edit_profile_path, class: 'btn btn-primary' %>
-          <%= link_to 'View how your products have been reviewed', user_reviews_path(:user_id => @user.id) %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <h3>My profile</h3>
 <br>
 <h1><%= @user.nome+" "+@user.cognome %></h1>
 <div class="row align-items-center">
-  <div class="col-md-6 justify-content-start">
+  <div class="col-md-6">
     <div class="row">
-      <div class="p-4">
-        <img src="https://www.sognipedia.it/wp-content/uploads/2011/08/colore-nero-sognare-significato-interpretazione-numeri.png">
+      <div class="p-5">
+        <% if @user.images.length==0 %>
+          <img src="https://www.sognipedia.it/wp-content/uploads/2011/08/colore-nero-sognare-significato-interpretazione-numeri.png">
+        <% else %>
+          <%= image_tag(@user.thumbnail) %>
+        <% end %>
       </div>
     </div>
   </div>

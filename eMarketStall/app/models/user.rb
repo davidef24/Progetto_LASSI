@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :orders
   has_one :wishlist
+  has_many_attached :images
   after_create :set_stripe_customer_id
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -14,6 +15,13 @@ class User < ApplicationRecord
 
   def admin?
     self.roles_mask==3
+  end
+
+  def thumbnail
+    if self.images.length>1
+      self.images.first.purge
+    end
+    self.images.last.variant(resize: '500x500').processed
   end
 
   def self.from_omniauth(auth)

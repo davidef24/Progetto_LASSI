@@ -11,7 +11,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def update_profile
       @user = current_user
-
+      if params[:user][:images].present?
+        @user.images.attach(params[:user][:images])
+      end
       if @user.update(user_params)
         redirect_to root_path, notice: 'Profilo aggiornato con successo.'
       else
@@ -20,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def user_params
-      params.require(:user).permit(:città, :num_telefono, :roles_mask, :cap_residenza, :via_residenza)
+      params.require(:user).permit(:città, :num_telefono, :roles_mask, :cap_residenza, :via_residenza, images: [])
     end
 
     def show
@@ -30,6 +32,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     def create
       super do |resource|
         roles_mask = roles_mask_from_params
+        if params[:user][:images].present?
+          images = params[:user][:images]
+          resource.images.attach(images)
+        end
         resource.roles_mask = roles_mask
         resource.save
       end
@@ -38,7 +44,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     private
     
     def sign_up_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :nome, :cognome, :roles_mask, :città, :num_telefono, :via_residenza, :cap_residenza)
+      params.require(:user).permit(:email, :password, :password_confirmation, :nome, :cognome, :roles_mask, :città, :num_telefono, :via_residenza, :cap_residenza, images: [])
     end
     
     def roles_mask_from_params
