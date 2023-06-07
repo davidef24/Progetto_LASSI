@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(version: 2023_06_01_134053) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "published_at"
     t.integer "user_id", null: false
-    t.boolean "verified", default: false
     t.string "stripe_product_id"
     t.string "stripe_price_id"
+    t.boolean "verified", default: false
     t.boolean "removed_from_seller", default: false
     t.date "removed_at"
     t.json "images"

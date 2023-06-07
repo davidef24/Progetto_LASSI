@@ -1,6 +1,10 @@
+
 <h3>My profile</h3>
+<hr>
 <br>
 <h1><%= @user.nome+" "+@user.cognome %></h1>
+
+
 <div class="row align-items-center">
   <div class="col-md-6">
     <div class="row">
@@ -14,6 +18,19 @@
     </div>
   </div>
   <div class="col-md-6 p-5">
+      <div class="row">
+        <div class="col-md-8">
+         <h4>Email: <%= @user.email %></h4>
+          <%if @user.roles_mask == 1 %>
+          <h4>Current role registered: seller</h4>
+          <% else %>
+          <h4>Current role registered: buyer</h4>
+          <%end%>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
     <% if can? :see, Product %>
       <div class="row">
         <div class="col-md-8">
@@ -44,8 +61,10 @@
         <div class="col-md-6 justify-content-center">
           <h4>Add a product</h4>
         </div>
-        <div class="col-md-6 justify-content-start">
-          <%= link_to 'New Product', new_product_path, class: 'btn btn-primary' %>
+        <div class="col-md-6 justify-content-start align-items-center">
+          <%= link_to new_product_path do %>
+              <svg xmlns="http://www.w3.org/2000/svg" height="4em" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+          <% end %>
         </div>
       </div>
     <% end %>

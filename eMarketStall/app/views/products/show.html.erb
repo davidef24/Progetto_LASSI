@@ -1,43 +1,47 @@
 
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @product.category %>
-</p>
-
-<p>
-  <strong>Posted by:</strong>
-   <%= @product.user.email%> <%= link_to 'View how its products have been reviewed', user_reviews_path(:user_id => @product.user.id) %>
-</p>
-
-<p>
-  <strong>Availability:</strong>
-  <%= @product.availability %>
-</p>
-
-<% if can?(:manage, @product) %>
-  <%= link_to 'Edit', edit_product_path(@product) %>
-<% end %>
-<p>
-<% (0...@product.images.count).each do |i| %>
-  <%= image_tag(@product.thumbnail(i)) %>
-<% end %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
-<%= link_to 'View product reviews', product_reviews_path(@product) %>
+<h3>Product page</h3>
+<hr>
+<div class="row align-items-center">
+  <div class="col-md-6 justify-content-start">
+    <div class="row">
+      <div class="p-4">
+        <%= image_tag(@product.thumbnail_bigger(0)) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 p-5">
+      <div class="row">
+        <p style="font-size: 20px">
+          <strong>Title:</strong>
+          <%= @product.title %><br>
+        <%= link_to 'View product reviews', product_reviews_path(@product) %>
+        </p>
+      </div>
+      <div class= "row">
+        <p style="font-size:16px">
+          <strong>Description:</strong>
+          <%= @product.description %>
+        </p>
+      </div>
+        <hr>
+      <div class= "row">
+        <p style="font-size:20px">
+          <strong>Price:</strong>
+          <%= @product.price %>
+          <br>
+          <strong>Category:</strong>
+          <%= @product.category %>
+          <br>
+          <strong>Posted by:</strong>
+           <%= @product.user.email%> <%= link_to 'View how its products have been reviewed', user_reviews_path(:user_id => @product.user.id) %>
+          <br>
+          <strong>Availability:</strong>
+          <%= @product.availability %>
+        
+          <% if can?(:manage, @product) %>
+            <%= link_to 'Edit', edit_product_path(@product) %>
+          <% end %>
+          <br>
+        </p>
+  </div>
+</div>

@@ -11,8 +11,6 @@ class User < ApplicationRecord
 
   validates :nome, presence: true
   
- 
-
   def admin?
     self.roles_mask==3
   end

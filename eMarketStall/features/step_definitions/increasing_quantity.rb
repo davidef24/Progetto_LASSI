@@ -6,14 +6,14 @@ Given("I am a logged in user and have at least one product in the cart") do
 
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Accedi'
+    click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
     click_link("New Product")
     fill_in('product[title]', with: 'Product1')
     fill_in('product[description]', with: 'Test')
     fill_in('product[price]', with: '15')
-    select('Collane', from: 'product[category]')
+    select('Chains', from: 'product[category]')
     fill_in('product[availability]', with: '2')
     click_button("Create Product")
     click_link("Logout")
@@ -23,10 +23,10 @@ Given("I am a logged in user and have at least one product in the cart") do
     user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Accedi'
+    click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
-    click_button('Add to cart')
+    click_link('cart-link')
 
 end
 

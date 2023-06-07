@@ -1,5 +1,9 @@
 class CartItemsController < ApplicationController
 
+  def current_cart
+    @current_cart
+  end
+
   def create
       # Find associated product and current cart
       added_product_id = params[:product_id]
@@ -43,9 +47,11 @@ class CartItemsController < ApplicationController
     
   def decrease_number
       @cart_item = CartItem.find(params[:cart_item_id])
-      if @cart_item.quantity > 1
-        @cart_item.quantity -= 1
+      @cart_item.quantity -= 1
+      if @cart_item.quantity == 0
+        @cart_item.destroy
       end
+      
       @cart_item.save
       redirect_to cart_path(@current_cart)
   end

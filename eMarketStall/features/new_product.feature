@@ -6,7 +6,7 @@ Scenario: Seller creates a new listing
     And I fill in the title with "Handcrafted Necklace"
     And I fill in the description with "Beautiful handcrafted necklace made with genuine gemstones."
     And I set the price to "50.00"
-    And I set the category as "Collane"
+    And I set the category as "Chains"
     And I set the availability to "3"
     And I click the "Create Product" button
     Then I should see a success message confirming the listing was created
