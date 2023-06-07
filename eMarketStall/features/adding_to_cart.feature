@@ -16,7 +16,7 @@ Scenario: Buyer increases the quantity of a product in the cart
 Scenario: Buyer exceeds product availability in the cart
   Given I am a logged in user and have a product in the cart
   When I click the "Add one" link for the product multiple times exceeding its availability
-  Then I should see an error message saying "Product availability is less than your desired quantity"
-
+  Then the quantity of the product in the cart is not changed
+  And I should see an error message saying "Product availability is less than your desired quantity"
 
 

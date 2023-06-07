@@ -23,7 +23,7 @@ class Product < ApplicationRecord
   end
 
   def thumbnail_bigger(i)
-    return self.images[i].variant(resize: '500x500').processed
+      self.images[i].variant(resize: '500x500').processed
   end
 
   private
@@ -33,7 +33,6 @@ class Product < ApplicationRecord
   end
 
   def set_stripe_product_id 
-    image_path = Rails.application.routes.url_helpers.rails_blob_path(self.images[0], only_path: true)
     product = Stripe::Product.create(name: self.title, description: self.description)
     # * 100 beceause Stipe amounts are in cents unit
     price = Stripe::Price.create(product: product, unit_amount: (self.price * 100).to_i, currency: 'eur')

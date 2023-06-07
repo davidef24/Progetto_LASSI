@@ -1,47 +1,97 @@
-
-<h3>Product page</h3>
+<head>
+  <style>
+      img.rounded-img{
+        border-radius: 50%;
+      }
+  </style>
+</head>
+<h3 class= "font-weight-bold"><h1 class="font-weight-bold"><%= @product.title %><br></h1></h3>
 <hr>
-<div class="row align-items-center">
-  <div class="col-md-6 justify-content-start">
-    <div class="row">
-      <div class="p-4">
-        <%= image_tag(@product.thumbnail_bigger(0)) %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6 p-5">
-      <div class="row">
-        <p style="font-size: 20px">
-          <strong>Title:</strong>
-          <%= @product.title %><br>
-        <%= link_to 'View product reviews', product_reviews_path(@product) %>
-        </p>
-      </div>
-      <div class= "row">
-        <p style="font-size:16px">
-          <strong>Description:</strong>
-          <%= @product.description %>
-        </p>
-      </div>
-        <hr>
-      <div class= "row">
-        <p style="font-size:20px">
-          <strong>Price:</strong>
-          <%= @product.price %>
-          <br>
-          <strong>Category:</strong>
-          <%= @product.category %>
-          <br>
-          <strong>Posted by:</strong>
-           <%= @product.user.email%> <%= link_to 'View how its products have been reviewed', user_reviews_path(:user_id => @product.user.id) %>
-          <br>
-          <strong>Availability:</strong>
-          <%= @product.availability %>
-        
-          <% if can?(:manage, @product) %>
-            <%= link_to 'Edit', edit_product_path(@product) %>
-          <% end %>
-          <br>
-        </p>
-  </div>
+<div class="row justify-content-center">
+        <div class="col-lg-4 col-sm-12 mb-4">
+             <%= image_tag(@product.thumbnail_bigger(0)) %>
+        </div>
+        <div class="col-lg-4 col-xs-12 mb-4" style="position: relative;">
+            
+            <p>
+              <h1 class="font-weight-bold"><%= @product.price %> € <br></h1>
+              <h6><%= @product.user.nome%>  <%=@product.user.cognome%> <%= link_to 'View reviews', user_reviews_path(:user_id => @product.user.id) %></h6> <br>
+              <h3><%= @product.description %></h3><br>
+                
+               <% if @product.availability <= 3 %>
+                  <p style="color: red;">Remaining: <%= @product.availability.to_s %></p>
+              <% elsif  @product.availability > 3 && @product.availability < 8 %>
+                  <p style="color: orange;">Remaining: <%= @product.availability.to_s %></p>
+                <% end %>
+            </p>
+            <% if can?(:manage, @product) %>
+                <%= link_to 'Edit', edit_product_path(@product) %>
+              <% end %>
+            <% if can? :buy, @product %>
+            <div class="col-md-5" style="padding: 0!important">
+              <div>
+                <div>
+                  Add to cart
+                  <%= link_to cart_items_path(:product_id => @product.id), method: :post do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path fill="none" d="M0 0h48v48H0zm36.62 12L31.1 22z"></path><path d="M22 18h4v-6h6V8h-6V2h-4v6h-6v4h6v6zm-8 18c-2.21 0-3.98 1.79-3.98 4s1.77 4 3.98 4 4-1.79 4-4-1.79-4-4-4zm20 0c-2.21 0-3.98 1.79-3.98 4s1.77 4 3.98 4 4-1.79 4-4-1.79-4-4-4zm-19.65-6.5c0-.09.02-.17.06-.24l1.8-3.26h14.9c1.5 0 2.81-.83 3.5-2.06l7.72-14.02L38.83 8h-.01l-2.21 4-5.51 10H17.07l-.26-.54L12.32 12l-1.9-4-1.89-4H2v4h4l7.2 15.17-2.71 4.9c-.31.58-.49 1.23-.49 1.93 0 2.21 1.79 4 4 4h24v-4H14.85c-.28 0-.5-.22-.5-.5z"></path></svg>
+                  <% end %>
+                  <br>
+                  <br>
+                  <% wl_user=Wishlist.find_by(user_id: @current_user.id) %>
+                  <% found=false %>
+                  <% wl_user.wishlist_items.each do |wl_item| %>
+                    <% if wl_item.product.id==@product.id %>
+                      <% found=true %>
+                      <% break %>
+                    <% end %>
+                  <% end %>
+                  <% if !found %>
+                    Add to wishlist
+                    <%= link_to add_to_wishlist_path(@product.id) do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 512 512" id="heart"><path d="M349.6 64c-36.4 0-70.718 16.742-93.6 43.947C233.117 80.742 198.8 64 162.4 64 97.918 64 48 114.221 48 179.095c0 79.516 70.718 143.348 177.836 241.694L256 448l30.164-27.211C393.281 322.442 464 258.61 464 179.095 464 114.221 414.082 64 349.6 64zm-80.764 329.257l-4.219 3.873-8.617 7.773-8.616-7.772-4.214-3.869c-50.418-46.282-93.961-86.254-122.746-121.994C92.467 236.555 80 208.128 80 179.095c0-22.865 8.422-43.931 23.715-59.316C118.957 104.445 139.798 96 162.4 96c26.134 0 51.97 12.167 69.11 32.545L256 157.661l24.489-29.116C297.63 108.167 323.465 96 349.6 96c22.603 0 43.443 8.445 58.686 23.778C423.578 135.164 432 156.229 432 179.095c0 29.033-12.467 57.459-40.422 92.171-28.784 35.74-72.325 75.709-122.742 121.991z"></path></svg>
+                    <% end %>
+                  <% else %>
+                    Remove from wishlist
+                    <%= link_to remove_from_wishlist_path(@product.id), method: :delete do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path></svg>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <% end %>
+        </div>
 </div>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-sm-12 mb-4">
+          <%if @num_reviews == 0 %>
+              <h1>This product has not been reviewed yet!</h1>
+          <% elsif @num_reviews == 1 %>
+            <h1> <%= @num_reviews%> review wrote for this product</h1>
+          <% else %>
+            <h1> <%= @num_reviews%> reviews wrote for this product</h1>
+          <% end %>
+          <% @product.reviews.each do |rev| %>
+            <div class="row">
+              <div class="col-auto">
+                <% if rev.user.images.length != 0 %>
+                  <%= image_tag(rev.user.thumbnail_small, class: 'rounded-img') %>
+                <% end %>
+              </div>
+              <div class="col">
+                <h4><%= rev.user.email %></h4>
+              </div>
+          </div>
+
+            <p>
+              <strong>Rating:</strong>
+              <h4><%= rev.rating %></h4>
+            </p>
+            <p>
+              <h3><%= rev.content %></h3>
+            </p>
+            <hr>
+          <% end %>
+    </div>
+</div>
+

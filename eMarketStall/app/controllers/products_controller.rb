@@ -12,9 +12,9 @@ class ProductsController < ApplicationController
     if @category.present?
       @products=@products.where(category: @category)
     end
-    if params[:sort]=="title"
+    if params[:sort]=="Title"
       @products=Product.order(:title)
-    elsif params[:sort]=="price"
+    elsif params[:sort]=="Price"
       @products=Product.order(:price)
     end
   end
@@ -23,6 +23,7 @@ class ProductsController < ApplicationController
   def show
     @user = current_user
     @product = Product.find(params[:id])
+    @num_reviews = Review.where(product_id: @product.id).count
   end
 
   # GET /products/new
@@ -39,7 +40,6 @@ class ProductsController < ApplicationController
   def create
     @user = current_user
     @product = @user.products.build(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
