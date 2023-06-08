@@ -1,6 +1,6 @@
 Given("I am a logged in buyer") do
     # Implement the logic to simulate an authenticated buyer
-    @seller = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova')
+    @seller = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1)
     prod = Product.create(user_id: User.last.id, title: 'Tavolo', price: 30, category: 'Wood processing', description: 'Per 4 posti a sedere', availability: 3)
 
 

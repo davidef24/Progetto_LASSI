@@ -2,18 +2,21 @@ Given("I am a logged in user and have at least one product in the cart") do
     # Implement the logic to simulate a registered seller
     # Simulate a logged-in user which adds a new prodouct for sale
     visit new_user_session_path
-    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova')
+    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1)
 
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
-    click_link("New Product")
+    click_link('my-prfl') #My profile link in navbar
+    click_link('new-prdt') #New product link
     fill_in('product[title]', with: 'Product1')
     fill_in('product[description]', with: 'Test')
     fill_in('product[price]', with: '15')
     select('Chains', from: 'product[category]')
+    img_path = Rails.root.join('features', 'step_definitions', 'logo.png')
+    attach_file('product[images][]', img_path)
     fill_in('product[availability]', with: '2')
     click_button("Create Product")
     click_link("Logout")

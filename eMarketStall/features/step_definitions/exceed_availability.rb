@@ -1,9 +1,10 @@
 Given("I am a logged in user and have a product in the cart") do
     visit new_user_session_path
-    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1)
+    user1 = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1)
+    user2 = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
 
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'Email', with: user1.email
+    fill_in 'Password', with: user1.password
     click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
@@ -12,16 +13,18 @@ Given("I am a logged in user and have a product in the cart") do
     fill_in('product[title]', with: 'Product1')
     fill_in('product[description]', with: 'Test')
     fill_in('product[price]', with: '15')
+    img_path = Rails.root.join('features', 'step_definitions', 'logo.png')
+    attach_file('product[images][]', img_path)
     select('Chain', from: 'product[category]')
+
     fill_in('product[availability]', with: '2')
     click_button("Create Product")
     click_link("Logout")
 
 
     visit new_user_session_path
-    user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'Email', with: user2.email
+    fill_in 'Password', with: user2.password
     click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
@@ -30,7 +33,6 @@ Given("I am a logged in user and have a product in the cart") do
   
   When("I click the {string} link for the product multiple times exceeding its availability") do |link_text|
     click_link(link_text) #avaialability is 2 so after this we should not be able to add any product
-    puts CartItem.last.quantity.to_s+"--------------------////////////////7"
     click_link(link_text) 
   end
 

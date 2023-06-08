@@ -36,7 +36,6 @@ RSpec.describe ReviewsController, type: :controller do
             review_attributes = { content: "Great product!", rating: 5, current_user_id: user_2.id }
             post :create, params: { product_id: product.id, review: review_attributes}
             #in this case seller of product reviewed is user_1
-            puts user_1.products.where(id: product.id).first.reviews.to_s
             expect(user_1.products.where(id: product.id).first.reviews).to include(Review.last)
             
           end
@@ -46,8 +45,8 @@ RSpec.describe ReviewsController, type: :controller do
             it "does not create a new review and re-renders the 'new' template" do
               puts "\nRunning test: does not create a new review and re-renders the 'new' template"
               #rating can be a number in 1..5
-              review_attributes = { content: "Great product!", rating: 15}
-              post :create, params: { product_id: product.id, review: review_attributes, current_user_id: user_2.id }
+              review_attributes = { content: "Great product!", rating: 15, current_user_id: user_2.id }
+              post :create, params: { product_id: product.id, review: review_attributes }
               expect(Review.count).to eq(0)
               expect(response).to render_template(:new)
             end

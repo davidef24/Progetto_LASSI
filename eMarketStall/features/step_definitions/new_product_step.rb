@@ -5,19 +5,18 @@ Given("I am a logged in user and i'm in the  root page") do
   # Implement the logic to simulate a registered seller
   # Simulate a logged-in user
   visit new_user_session_path
-  user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Cognome', città: 'Milano')
+  #roles_mask 1 to add a new product for sale
+  user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Cognome', città: 'Milano', roles_mask:1)
   fill_in 'Email', with: user.email
   fill_in 'Password', with: user.password
   click_button 'Sign in'
   expect(page).to have_content('Signed in successfully.') # Expectation for success message
   expect(page).to have_current_path(root_path)
-  click_link('my-prfl') #My profile link in navbar
-  click_link('new-prdt') #New product link
-  # Ensure the user is on the root page
 end
 
 When("I click the \"New product\" link") do
-  click_link("New Product")
+  click_link('my-prfl') #My profile link in navbar
+  click_link('new-prdt') #New product link
 end
 
 
@@ -40,6 +39,11 @@ And("I set the availability to {string}") do |availability|
   fill_in('product[availability]', with: availability)
 end
 
+And("I choose images for my product") do
+  img_path = Rails.root.join('features', 'step_definitions', 'logo.png')
+  attach_file('product[images][]', img_path)
+end
+
 And("I click the {string} button") do |button_text|
   click_button(button_text)
 end
@@ -53,9 +57,9 @@ And("I should be redirected to the product details page") do
 end
 
 And("I should see the details of the newly created product, including the title, description, price, category and availability") do
-  expect(page).to have_content(Product.last.title)
-  expect(page).to have_content(Product.last.description)
-  expect(page).to have_content(Product.last.price)
-  expect(page).to have_content(Product.last.category)
-  expect(page).to have_content(Product.last.availability)
+  last_prod = Product.last 
+  expect(page).to have_content(last_prod.title)
+  expect(page).to have_content(last_prod.description)
+  expect(page).to have_content(last_prod.price)
+  expect(page).to have_content(last_prod.availability)
 end

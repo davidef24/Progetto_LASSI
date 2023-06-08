@@ -8,6 +8,7 @@ Scenario: Seller creates a new product
     And I set the price to "50.00"
     And I set the category as "Plates"
     And I set the availability to "3"
+    And I choose images for my product
     And I click the "Create Product" button
     Then I should see a success message confirming the product was created
     And I should be redirected to the product details page
