@@ -1,6 +1,5 @@
-<p id="notice"><%= notice %></p>
 
-<h1 class="font-weight-bold">My wishlist</h1>
+<h1 class="font-weight-bold text-center" style="font-family: 'Poppins', sans-serif; font-weight: 700;">My wishlist</h1>
 
 <% if @wl_user.wishlist_items.empty? %>
   <div class="alert alert-warning mt-3">
@@ -14,7 +13,7 @@
       <div class="col-md-12 d-flex justify-content-center">
         <div class="card" style="width: 100%;">
           <div class="row align-items-center">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <% if wishlist_item.product.images.count!=0 %>
               <div class="p-4">
               <%= image_tag(wishlist_item.product.thumbnail(0)) %>
@@ -24,14 +23,14 @@
             <div class="col-md-6">
               <div class="card-body">
                 <div>
-                  <h1 class="card-title"><%= link_to wishlist_item.product.title, wishlist_item.product %>    <% if wishlist_item.product.verified %><span style="color: green; font-size: 40px;">&#x2713;</span><% end %></h5>
-                  <h5 class="card-text"><%= wishlist_item.product.description %></p>
+                  <h1 class="card-title" style="font-family: 'Poppins', sans-serif; font-weight: 400;"><%= link_to wishlist_item.product.title, wishlist_item.product %>    <% if wishlist_item.product.verified %><span style="color: green; font-size: 40px;">&#x2713;</span><% end %></h5>
+                  <h5 class="card-text" style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= wishlist_item.product.description %></p>
                   <h3 class="card-text"><%= "€"+wishlist_item.product.price.to_s+"0" %></p>
                 </div>
               </div>
             </div>
             <% if can? :buy, wishlist_item.product %>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="card-body d-flex flex-column justify-content-end align-items-center">
                 <div>
                   <%= link_to cart_items_path(:product_id => wishlist_item.product.id), method: :post do %>

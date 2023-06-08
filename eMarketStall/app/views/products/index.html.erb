@@ -1,6 +1,5 @@
-<p id="notice"><%= notice %></p>
 
-<h1 style="font-family: 'Poppins', sans-serif;">Products for sale</h1>
+<h1 style="font-family: 'Poppins', sans-serif; font-weight: 700;">Products for sale</h1>
 
 <%= form_with(url: products_path, method: "get", id: "search-form", class: "form-inline") do |f| %>
   <div class="input-group mb-3">
@@ -69,13 +68,13 @@
             <div class="col-md-6">
               <div class="card-body">
                 <div>
-                  <h1 class="card-title"><%= link_to product.title, product %>    <% if product.verified %><span style="color: green; font-size: 40px;">&#x2713;</span><% end %></h1>
-                  <h5 class="card-text"><%= product.description %></h5>
+                  <h1 class="card-title" style="font-family: 'Poppins', sans-serif; font-weight: 400;"><%= link_to product.title, product %>    <% if product.verified %><span style="color: green; font-size: 40px;">&#x2713;</span><% end %></h1>
+                  <h5 class="card-text" style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= product.description %></h5>
                   <h3 class="card-text"><%= "€"+product.price.to_s+"0" %></h3>
                   <% if product.availability <= 3 %>
-                    <p style="color: red;">Remaining: <%= product.availability.to_s %></p>
+                    <p style="color: red;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">Remaining: <%= product.availability.to_s %></p>
                   <% elsif  product.availability > 3 && product.availability < 8 %>
-                    <p style="color: orange;">Remaining: <%= product.availability.to_s %></p>
+                    <p style="color: orange;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">Remaining: <%= product.availability.to_s %></p>
                   <% end %>
                 </div>
               </div>

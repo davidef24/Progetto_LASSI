@@ -5,7 +5,7 @@
       }
   </style>
 </head>
-<h3 class= "font-weight-bold"><h1 class="font-weight-bold"><%= @product.title %><br></h1></h3>
+<h1 class="font-weight-bold" style="font-family: 'Poppins', sans-serif; font-weight: 400;margin-top: 4%;"><%= @product.title %><br></h1>
 <hr>
 <div class="row justify-content-center">
         <div class="col-lg-4 col-sm-12 mb-4">
@@ -16,12 +16,12 @@
             <p>
               <h1 class="font-weight-bold"><%= @product.price %> € <br></h1>
               <h6><%= @product.user.nome%>  <%=@product.user.cognome%> <%= link_to 'View reviews', user_reviews_path(:user_id => @product.user.id) %></h6> <br>
-              <h3><%= @product.description %></h3><br>
+              <h3 style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= @product.description %></h3><br>
                 
                <% if @product.availability <= 3 %>
-                  <p style="color: red;">Remaining: <%= @product.availability.to_s %></p>
+                  <p style="color: red;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px">Remaining: <%= @product.availability.to_s %></p>
               <% elsif  @product.availability > 3 && @product.availability < 8 %>
-                  <p style="color: orange;">Remaining: <%= @product.availability.to_s %></p>
+                  <p style="color: orange;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px">Remaining: <%= @product.availability.to_s %></p>
                 <% end %>
             </p>
             <% if can?(:manage, @product) %>
@@ -53,7 +53,7 @@
                   <% else %>
                     Remove from wishlist
                     <%= link_to remove_from_wishlist_path(@product.id), method: :delete do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path><path d="m14.854 6.083-.354.353-.354-.354a6.5 6.5 0 0 0-9.192 9.192l.354.354L14.5 24.82l9.192-9.192.354-.354a6.5 6.5 0 0 0-9.192-9.191z"></path></svg>
                     <% end %>
                   <% end %>
                 </div>

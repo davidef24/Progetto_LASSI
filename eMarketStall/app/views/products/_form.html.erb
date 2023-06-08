@@ -1,54 +1,73 @@
-<%= form_with(model: product) do |form| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+
+<div class="container" style="margin-top: 5%;">
+  <div class="row">
+  <div class="col-lg-2">
+
+  </div>
+    <div class="col-lg-6">
+      <%= form_with(model: product, class: "card") do |form| %>
+        <div class= "card-title text-center ">
+          <h1 class="font-weight-bold">Insert product details</h1>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :title %>
+            <%= form.text_field :title, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :price %>
+            <%= form.text_field :price, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :category %>
+            <%= form.select :category, options_for_select(["Chains", "Vases", "Painting", "Plates", "Wood processing"], product.category), { include_blank: true }, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :availability %>
+            <%= form.number_field :availability, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :images %>
+            <%= form.file_field :images, multiple: true, class: "form-control-file" %>
+          </div>
+
+          <% if can?(:manage, product) %>
+            <div class="form-group">  
+              <%= form.label :verified %>
+              <%= form.check_box :verified, checked: product.verified %>
+            </div>
+          <% end %>
+
+        </div>
+
+        <div class="card-footer text-center">
+          <%= form.submit class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <div class="col-lg-4">
+      <% if product.errors.any? %>
+          <div id="error_explanation">
+            <h2 class="card-title">
+              <%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:
+            </h2>
+            <ul class="list-unstyled">
+              <% product.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :category %>
-    <%= form.select :category, options_for_select(["Chains", "Vases", "Painting", "Plates", "Wood processing"], product.category) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :availability %>
-    <%= form.number_field :availability %>
-  </div>
-
-  <div class="field">
-    <%= form.label :images %>
-    <%= form.file_field :images, multiple: true %>
-  </div>
-
-  <% if can?(:manage, product) %>
-    <div class="field">  
-    <%= form.label :verified %>
-    <%= form.check_box :verified, checked: product.verified %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+  </div> 
+</div>

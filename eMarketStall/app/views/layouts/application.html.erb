@@ -18,7 +18,24 @@
     <%= javascript_pack_tag 'form_controls' %>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@700&display=swap');
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap');
+    </style>
+    <style>
+        .alert {
+          padding: 12px;
+          font-size: 15px;
+          border-radius: 4px;
+        }
+
+        .alert-warning {
+          padding: 12px;
+          font-size: 18px;
+          border-radius: 4px;
+        }
+
+        #alert{
+          display: none;
+        }
     </style>
   </head>
 
@@ -66,9 +83,24 @@
         </div>
       </div>
     </nav>
-
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if alert.present? %>
+    <div class="alert alert-warning" style="width: 30%; margin-top: 3%">
+      <div class="row">
+        <div class="col-md-2">
+          <svg xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>  
+        </div> 
+        <div class="col-md-10"> 
+          <%= alert %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if notice.present? %>
+    <div class="alert alert-success" style="width: 30%; margin-top: 3%">
+      <%= notice %>
+    </div>
+  <% end %>
+  <p id="alert"><%= alert %></p>
     <% if user_signed_in? %>
       <% if current_user.present? && current_user.provider == "google_oauth2" && (current_user.città.blank? || current_user.num_telefono.blank? || current_user.cap_residenza.blank? || current_user.via_residenza.blank?) %>
         <%= link_to 'To make purchases, you will necessarily need to enter other data in addiction to those provided by Google', edit_profile_path %>
