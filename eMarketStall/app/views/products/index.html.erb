@@ -16,7 +16,7 @@
 
 <%= form_with(url: products_path, method: "get", id: "order-by", class: "form-inline") do |s| %>
   <div class="input-group mb-3">
-    <%= s.select :sort, options_for_select(["title", "price"], params[:sort]), {include_blank: "Order by"}, id: "sort-select", class: "form-select" %>
+    <%= s.select :sort, options_for_select(["Title", "Price"], params[:sort]), {include_blank: "Order by"}, id: "sort-select", class: "form-select" %>
   </div>
 <% end %>
 
@@ -72,11 +72,9 @@
                   <h1 class="card-title"><%= link_to product.title, product %>    <% if product.verified %><span style="color: green; font-size: 40px;">&#x2713;</span><% end %></h1>
                   <h5 class="card-text"><%= product.description %></h5>
                   <h3 class="card-text"><%= "€"+product.price.to_s+"0" %></h3>
-                  <% if product.availability>5 %>
-                    <p style="color: green;">Remaining: <%= product.availability.to_s %></p>
-                  <% elsif product.availability==1 %>
+                  <% if product.availability <= 3 %>
                     <p style="color: red;">Remaining: <%= product.availability.to_s %></p>
-                  <% else %>
+                  <% elsif  product.availability > 3 && product.availability < 8 %>
                     <p style="color: orange;">Remaining: <%= product.availability.to_s %></p>
                   <% end %>
                 </div>

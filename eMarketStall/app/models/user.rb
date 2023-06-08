@@ -22,6 +22,10 @@ class User < ApplicationRecord
     self.images.last.variant(resize: '500x500').processed
   end
 
+  def thumbnail_small
+    self.images.last.variant(resize: '50x50').processed
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

@@ -36,7 +36,6 @@ Given("I am a logged in buyer") do
   And("I click the {string} button for reviews") do |button_text|
     # Implement the logic to click the "Submit Review" button or an appropriate button
     click_button(button_text)
-    puts page.body
   end
   
   Then("I should see a success message confirming my review has been submitted") do
