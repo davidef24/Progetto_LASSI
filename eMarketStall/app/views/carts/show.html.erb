@@ -1,7 +1,11 @@
+<h1 class="font-weight-bold">My cart</h1>
 <% if @cart.cart_items.size == 0%>
-  <h1>Your cart is empty, <%= link_to "add products", products_path%></h1>
+  <div class="alert alert-warning mt-3">
+    <h3 class="font-weight-bolder">Your cart is empty</h3>
+    <%= link_to "add products", products_path %>
+  </div>
 <%else%>
-<h1>Your cart contains:</h1>
+<h3>Your cart contains:</h3>
 <ul>
   <% @cart.cart_items.each do |cart_el| %>
     <li>

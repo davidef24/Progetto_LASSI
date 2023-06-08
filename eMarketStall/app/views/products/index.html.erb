@@ -32,13 +32,13 @@
       <div class="col-md-12 d-flex justify-content-center">
         <div class="card" style="width: 100%;">
           <div class="row align-items-center">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <% if product.images.count==1 %>
                 <div class="p-4">
                   <%= image_tag(product.thumbnail(0)) %>
                 </div>
               <% elsif product.images.count>1 %>
-                <div id="carousel" class="carousel" data-ride="carousel" data-interval="false">
+                <div id="carousel" class="carousel p-4" data-ride="carousel" data-interval="false">
                   <ol class="carousel-indicators">
                     <li data-target="#carousel1" data-slide-to="0" class="active"></li>
                     <% for i in 2..product.images.count do %>

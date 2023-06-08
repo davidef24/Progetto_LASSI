@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :category %>
-    <%= form.select :category, options_for_select(["Chains", "Vases", "Painting", "Plates", "Wood processing"]) %>
+    <%= form.select :category, options_for_select(["Chains", "Vases", "Painting", "Plates", "Wood processing"], product.category) %>
   </div>
 
   <div class="field">
