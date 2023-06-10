@@ -1,4 +1,10 @@
-
+<div class="alert alert-primary" style="width: 70%; margin-top: 1%">
+  <% if @current_user.roles_mask==1 %>
+    <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;">You are now a seller user. If you want to buy products you need to switch your role to buyer</h4>
+  <% elsif @current_user.roles_mask==2 %>
+    <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;">You are now a buyer user. If you want to sell products you need to switch your role to seller</h4>
+  <% end %>
+</div>
 <h1 style="font-family: 'Poppins', sans-serif; font-weight: 700;">Products for sale</h1>
 
 <%= form_with(url: products_path, method: "get", id: "search-form", class: "form-inline") do |f| %>

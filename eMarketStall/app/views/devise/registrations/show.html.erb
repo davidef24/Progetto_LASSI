@@ -1,12 +1,12 @@
-
+<br>
 <h1 class="text-center" style="font-family: 'Poppins', sans-serif; font-weight: 700;">My profile</h1>
 <hr>
 <br>
-<h1><%= @user.nome+" "+@user.cognome %></h1>
+<h1 style="font-family: 'Poppins', sans-serif; font-weight: 500;"><%= @user.nome+" "+@user.cognome %></h1>
 
 
 <div class="row align-items-center">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <div class="row">
       <div class="p-5">
         <% if @user.images.length==0 %>
@@ -17,17 +17,19 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6 p-5">
+  <div class="col-md-7 p-5">
       <div class="row">
-        <div class="col-md-8">
-         <h4>Email: <%= @user.email %></h4>
-          <% if @user.roles_mask == 1 %>
-          <h4>Current role registered: seller</h4>
-          <% elsif @user.roles_mask == 2 %>
-          <h4>Current role registered: buyer</h4>
-          <% else %>
-          <h4>Welcome back, boss</h4>
-          <% end %>
+        <div class="col-md-12">
+         <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;">Email: <%= @user.email %></h4>
+          <div class="alert alert-primary" style="width: 90%; margin-top: 1%">
+            <% if @current_user.roles_mask==1 %>
+              <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;">You are now a seller user. If you want to buy products you need to switch your role to buyer</h4>
+            <% elsif @current_user.roles_mask==2 %>
+              <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;">You are now a buyer user. If you want to sell products you need to switch your role to seller</h4>
+            <% else %>
+              <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;">Welcome back, boss</h4>
+            <% end %>
+          </div>
         </div>
       </div>
       <br>
@@ -35,7 +37,7 @@
       <br>
     <% if can? :see, Product %>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
           <h4><%= link_to 'View how your products have been reviewed', user_reviews_path(:user_id => @user.id) %></h4>
         </div>
         <div class="col-md-4">
@@ -116,19 +118,11 @@
     <% end %>
     <div class="row">
       <div class="col-md-12">
-        <h4><%= link_to 'Modify profile', edit_profile_path %></h4>
+        <h4><%= link_to 'Modify profile', edit_profile_path, class: "btn btn-primary text-white" %></h4>
       </div>
     </div>
     <% if can? :see, Product %>
       <hr>
-      <div class="row">
-        <div class="col-md-12">
-          <h4><%= link_to 'My products', user_my_products_path(current_user) %></h4>
-        </div>
-      </div>
-      <hr>
-    <% end %>
-    <% if can? :see, Product %>
       <div class="row">
         <div class="col-md-6 justify-content-center">
           <h4>Add a product</h4>
