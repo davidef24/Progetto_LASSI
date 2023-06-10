@@ -10,12 +10,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates :nome, presence: true
-  validates :via_residenza, format: { with: /\A[a-zA-Z\s]+,\s\d+\z/,
-    message: "Format is street name, street number" }
-  validates :cap_residenza, format: { with: /\A\d{5}\z/,
-                      message: "5 cipher field" }
-  validates :num_telefono, format: { with: /\A((\+|00)?39)?3\d{2}\d{6,7}\z/,
-                      message: "Insert a valid phone number" }
   
   def admin?
     self.roles_mask==3
