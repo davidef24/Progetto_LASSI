@@ -18,7 +18,7 @@
     <%= javascript_pack_tag 'form_controls' %>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@700&display=swap');
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
     </style>
     <style>
         .alert {
@@ -29,7 +29,7 @@
 
         .alert-warning {
           padding: 12px;
-          font-size: 18px;
+          font-size: 17px;
           border-radius: 4px;
         }
 
@@ -100,12 +100,6 @@
       <%= notice %>
     </div>
   <% end %>
-  <p id="alert"><%= alert %></p>
-    <% if user_signed_in? %>
-      <% if current_user.present? && current_user.provider == "google_oauth2" && (current_user.città.blank? || current_user.num_telefono.blank? || current_user.cap_residenza.blank? || current_user.via_residenza.blank?) %>
-        <%= link_to 'To make purchases, you will necessarily need to enter other data in addiction to those provided by Google', edit_profile_path %>
-      <% end %>
-    <% end %>
-    <%= yield %>
+  <%= yield %>
   </body>
 </html>

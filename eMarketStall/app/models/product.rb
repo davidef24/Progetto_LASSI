@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
     # Associazioni
-  has_many_attached :images
-  has_many :reviews
+  has_many_attached :images, :dependent => :destroy
+  has_many :reviews, :dependent => :destroy
   belongs_to :user
   after_create :set_stripe_product_id
   #only if price changed
@@ -25,6 +25,10 @@ class Product < ApplicationRecord
   def thumbnail_bigger(i)
       self.images[i].variant(resize: '500x500').processed
   end
+
+  def thumbnail_small(i)
+    self.images[i].variant(resize: '150x150').processed
+end
 
   private
 

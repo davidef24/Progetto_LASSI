@@ -9,12 +9,12 @@
             <%= render "devise/shared/error_messages", resource: resource %>
 
             <div class="mb-3">
-              <%= f.label :nome, "Name", class: "form-label font-weight-bold" %>
+              <%= f.label :nome, "First name", class: "form-label font-weight-bold" %>
               <%= f.text_field :nome, class: "form-control", id: "name", autocomplete: "off", onchange: "return nameIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :cognome, "Surname", class: "form-label font-weight-bold" %>
+              <%= f.label :cognome, "Last name", class: "form-label font-weight-bold" %>
               <%= f.text_field :cognome, class: "form-control", id: "surname", autocomplete: "off", onchange: "return surnameIsValid();" %>
             </div>
 

@@ -6,7 +6,7 @@ Given("I am a logged in user and i'm in the  root page") do
   # Simulate a logged-in user
   visit new_user_session_path
   #roles_mask 1 to add a new product for sale
-  user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Cognome', città: 'Milano', roles_mask:1)
+  user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Cognome', città: 'Milano', roles_mask:1, cap_residenza: '37100', via_residenza: 'Via Bianchi, 3', num_telefono: '3211233344' )
   fill_in 'Email', with: user.email
   fill_in 'Password', with: user.password
   click_button 'Sign in'

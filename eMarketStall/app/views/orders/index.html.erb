@@ -9,28 +9,28 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Order ID</th>
-      <th scope="col">Product name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Order date</th>
-      <th scope="col">Leave a review</th>
+      <th scope="col"><h5 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Order ID</h5></th>
+      <th scope="col"><h5 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Product name</h5></th>
+      <th scope="col"><h5 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Price</h5></th>
+      <th scope="col"><h5 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Quantity</h5></th>
+      <th scope="col"><h5 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Order date</h5></th>
+      <th scope="col"><h5 style="font-family: 'Poppins', sans-serif; font-weight: 600;"></h5></th>
     </tr>
   </thead>
   <tbody>
 <% @user_for_orders.orders.sort_by { |order| order.created_at }.reverse.each do |order| %>
       <% order.cart.cart_items.each do |cart_item| %>
           <tr>
-            <td><%= order.id %></td> 
-            <td><%= cart_item.product.title %></td> 
-            <td><%= cart_item.product.price %></td>
-            <td><%= cart_item.quantity %></td>
-            <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
+            <td><h6 style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= order.id %></h6></td> 
+            <td><h6> <%= link_to cart_item.product.title, product_path(cart_item.product)%></h6></td> 
+            <td><h6><%= cart_item.product.price %> eur</h6></td>
+            <td><h6><%= cart_item.quantity %></h6></td>
+            <td><h6><%= order.created_at.strftime("%d/%m/%Y") %></h6></td>
             <% if cart_item.product.reviews.exists?(user_id: @current_user.id) %>
               <% review = cart_item.product.reviews.find_by(user_id: @current_user.id) %>
-              <td><%= link_to 'Update your opinion', edit_product_review_path(review.product_id, review.id) %></td>
+              <td><%= link_to 'Update your opinion', edit_product_review_path(review.product_id, review.id), class: 'btn btn-warning' %></td>
             <% else %>
-              <td><%= link_to 'Review the product', new_product_review_path(:current_user_id => @current_user.id, :product_id => cart_item.product.id) %></td>
+              <td><%= link_to 'Leave a review', new_product_review_path(:current_user_id => @current_user.id, :product_id => cart_item.product.id), class: 'btn btn-info text-white' %></td>
             <% end %>
           </tr>
       <% end %>

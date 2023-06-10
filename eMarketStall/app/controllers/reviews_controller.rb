@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
     #index reviews of a product
     def index
       @product = Product.find(params[:product_id])
+      @num_reviews = Review.where(product_id: @product.id).count
     end
 
     #index reviews of all products sold by a user
@@ -37,7 +38,7 @@ class ReviewsController < ApplicationController
     
         respond_to do |format|
           if @review.save
-            format.html { redirect_to product_review_path(@product, @review), notice: "Review was successfully created." }
+            format.html { redirect_to user_orders_path(params[:review][:current_user_id]), notice: "Review was successfully created." }
             format.json { render :show, status: :created, location: @review }
           else
             format.html { render :new, status: :unprocessable_entity }

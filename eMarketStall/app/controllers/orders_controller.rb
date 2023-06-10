@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   
   def index
+    puts params.to_s
     @user_for_orders = User.find(params[:user_id])
   end
 

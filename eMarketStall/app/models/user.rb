@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  has_many :products
-  has_many :orders
+  has_many :products, :dependent => :destroy
+  has_many :orders, :dependent => :destroy
   has_one :wishlist
-  has_many_attached :images
+  has_many_attached :images, :dependent => :destroy
   after_create :set_stripe_customer_id
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -10,6 +10,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates :nome, presence: true
+  validates :via_residenza, format: { with: /\A[a-zA-Z\s]+,\s\d+\z/,
+    message: "Format is street name, street number" }
+  validates :cap_residenza, format: { with: /\A\d{5}\z/,
+                      message: "5 cipher field" }
+  validates :num_telefono, format: { with: /\A((\+|00)?39)?3\d{2}\d{6,7}\z/,
+                      message: "Insert a valid phone number" }
   
   def admin?
     self.roles_mask==3
@@ -23,7 +29,17 @@ class User < ApplicationRecord
   end
 
   def thumbnail_small
+    if self.images.length>1
+      self.images.first.purge
+    end
     self.images.last.variant(resize: '50x50').processed
+  end
+
+  def thumbnail_smallest
+    if self.images.length>1
+      self.images.first.purge
+    end
+    self.images.last.variant(resize: '35x35').processed
   end
 
   def self.from_omniauth(auth)

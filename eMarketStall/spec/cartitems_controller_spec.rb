@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CartItemsController, type: :controller do
-    let(:user) { User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova') }
+    let(:user) { User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1, cap_residenza: '37100', via_residenza: 'Via Bianchi, 3', num_telefono: '3211233344') }
     let(:product) { Product.create(user_id: user.id, title: 'Tavolo', price: 30, category: 'Wood processing', description: 'Per 4 posti a sedere', availability: 3) }
     let(:product2) { Product.create(user_id: user.id, title: 'Collana', price: 30, category: 'Chains', description: 'Fatta a mano', availability: 2) }
 

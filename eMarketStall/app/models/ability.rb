@@ -7,7 +7,7 @@ class Ability
     end
     can [:update, :destroy], Product, user_id: user.id
     can :buy, Product do |product|
-      product.user_id != user.id && user.roles_mask != 1
+      product.user_id != user.id && user.roles_mask != 1 && !product.removed_from_seller
     end
     if user.roles_mask==1
       can :see, Product

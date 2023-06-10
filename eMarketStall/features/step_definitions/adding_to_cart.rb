@@ -5,18 +5,20 @@ require 'devise/test/integration_helpers'
 Given("I am a logged in user and there are products for sale") do
     # Implement the logic to simulate a registered seller
     # Simulate a logged-in user which adds a new prodouct for sale
-    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova')
+    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1, cap_residenza: '36200', via_residenza: 'Via Rossi, 2', num_telefono: '3211233344')
     prod = Product.create(user_id: User.last.id, title: 'Test product', price: 19, category: 'Wood processing', description: 'Its just a test', availability: 3)
     
 
     visit new_user_session_path
-    user2 = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
+    user2 = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona', roles_mask: 2, cap_residenza: '37100', via_residenza: 'Via Bianchi, 3', num_telefono: '3211233344' )
+    if !user2.save
+      puts user2.errors.full_messages.join(',')
+    end
     fill_in 'Email', with: user2.email
     fill_in 'Password', with: user2.password
     click_button 'Sign in'
     expect(page).to have_content('Signed in successfully.') # Expectation for success message
     expect(page).to have_current_path(root_path)
-
     #simulating our cart logic
 end
 

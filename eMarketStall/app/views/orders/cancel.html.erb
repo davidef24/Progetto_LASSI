@@ -1,22 +1,22 @@
 <div class="container">
-  <h1 style="color:red">Order not completed</h1>
-  <p style="font-size:15px">Amount paid: <%= @success_session.amount_total/100.to_f %> <%= @success_session.currency %></p>
-  <h5 class="card-title">Checkout status: <%= @cancel_session.payment_status %></h5>
+  <h1 style="color:red;font-family: 'Poppins', sans-serif; font-weight: 500;">Checkout status: <%= @cancel_session.payment_status %>. Try again!</h1>
+  <h3 style="font-family: 'Poppins', sans-serif; font-weight: 300;">Order subtotal: <%= @cancel_session.amount_total/100.to_f %> <%= @cancel_session.currency %></h3>
+  <h5 class="card-title"></h5>
 <% @cancel_session.line_items.data.each do |line_item| %>
-        <% product = Product.find_by(stripe_product_id: line_item.price.product) %>
-
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <%= image_tag(product.thumbnail(0), class: "card-img") %>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title text-center"><%= product.title %></h5>
-                <p class="card-text text-center"><%= product.description %></p>
-                <p class="card-text text-center"><%= line_item.price.unit_amount/100.to_f %> <%= line_item.price.currency.upcase %></p>
-              </div>
-            </div>
+    <% product = Product.find_by(stripe_product_id: line_item.price.product) %>
+    <div class="card">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <%= image_tag(product.thumbnail(0), class: "card-img") %>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title text-center"><%= product.title %></h5>
+            <p class="card-text text-center"><%= product.description %></p>
+            <p class="card-text text-center"><%= line_item.price.unit_amount/100.to_f %> <%= line_item.price.currency.upcase %></p>
           </div>
         </div>
-      <% end %>
+      </div>
+    </div>
+<% end %>
+</div>

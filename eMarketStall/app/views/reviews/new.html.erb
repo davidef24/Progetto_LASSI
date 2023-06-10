@@ -1,14 +1,39 @@
-<h1> New review for <%= @product.title %> </h1>
-<%= form_for([@product, @review], url: product_reviews_path(@product)) do |form| %>
-  <%= form.hidden_field :current_user_id, value: @current_user.id %>
-        <div class="field">
-            <%= form.label :rating %>
-            <%= form.select :rating, (1..5).to_a %>
+<h1 class="text-center" style="font-family: 'Poppins', sans-serif; font-weight: 700;margin-top: 2%">Share your experience with this product to help other users</h1>
+<div class="row justify-content-center">
+        <div class="col-lg-2 col-sm-12">
+             <%= image_tag(@product.thumbnail_small(0)) %>
         </div>
+        <div class="col-lg-4 col-xs-12" style="position: relative;">
+            
+            <p>
+              <h1 style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= @product.title%> </h1>
+              <h3 style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= @product.description %></h3><br>
+              
+        </div>
+</div>
+<hr>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 card mx-auto mt-3">
+            <div class="card-body">
+            <%= form_for([@product, @review], url: product_reviews_path(@product), html: { class: 'form' }) do |form| %>
+                <%= form.hidden_field :current_user_id, value: @current_user.id %>
 
-        <div class="field">
-            <%= form.label :content %>
-            <%= form.text_area :content %>
+                <div class="form-group">
+                <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;"><%= form.label :rating, class: 'control-label'%></h4>
+                <%= form.select :rating, (1..5).to_a, { include_blank: true }, class: 'form-control custom-select' %>
+                </div>
+
+                <div class="form-group">
+                <h4 style="font-family: 'Poppins', sans-serif; font-weight: 500;"><%= form.label :content, class: 'control-label' %></h4>
+                <%= form.text_area :content, class: 'form-control' %>
+                </div>
+
+                <div class="text-center">
+                <%= form.submit 'Submit Review', class: 'btn btn-primary' %>
+                </div>
+            <% end %>
+            </div>
         </div>
-	<%= submit_tag 'Submit Review' %>
-<% end %> 
+    </div>
+</div>

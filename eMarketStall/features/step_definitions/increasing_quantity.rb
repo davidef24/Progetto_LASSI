@@ -2,7 +2,7 @@ Given("I am a logged in user and have at least one product in the cart") do
     # Implement the logic to simulate a registered seller
     # Simulate a logged-in user which adds a new prodouct for sale
     visit new_user_session_path
-    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1)
+    user = User.create(email: 'test.user@example.com', password: 'password', nome: 'Test', cognome: 'Bianchi', città: 'Padova', roles_mask: 1, cap_residenza: '37100', via_residenza: 'Via Bianchi, 3', num_telefono: '3211233344' )
 
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
@@ -23,7 +23,7 @@ Given("I am a logged in user and have at least one product in the cart") do
 
 
     visit new_user_session_path
-    user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona')
+    user = User.create(email: 'test2.bianchi@example.com', password: 'password', nome: 'Marco', cognome: 'Rossi', città: 'Verona', roles_mask: 2, cap_residenza: '37100', via_residenza: 'Via Bianchi, 3', num_telefono: '3211233344' )
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'
@@ -34,8 +34,9 @@ Given("I am a logged in user and have at least one product in the cart") do
 end
 
 When("I click the {string} link for the product") do |button_text|
-  @initial_quantity = CartItem.last.quantity.to_i
-  @intial_subtotal = CartItem.last.product.price
+  @last_cart_item = CartItem.last
+  @initial_quantity = @last_cart_item.quantity.to_i
+  @intial_subtotal = @last_cart_item.product.price
   click_link(button_text)
 end
 
@@ -43,12 +44,14 @@ end
 # given the fact that two users are gonna log in, two carts would be created (we create a new cart every session), so for the second user
 # the correct route for going to his cart will be /carts/2
 Then("the quantity of the product in the cart should increase by 1") do
-    updated_quantity = CartItem.last.quantity.to_i
+    #after increasing we need the new instance of CartItem.last
+    @last_cart_item_2 = CartItem.last
+    updated_quantity = @last_cart_item_2.quantity.to_i
     expect(updated_quantity).to eq(@initial_quantity + 1)
 end
 
 And("the order subtotal should be updated accordingly") do
-    expect(page).to have_content("Sub total: $#{CartItem.last.product.price + @intial_subtotal}0")
+    expect(page).to have_content("Sub total: $#{@last_cart_item_2.product.price + @intial_subtotal}0")
 end
 
   
