@@ -33,11 +33,11 @@ Given("I am a logged in user and have at least one product in the cart") do
 
 end
 
-When("I click the {string} link for the product") do |button_text|
+When("I click the link with id {string} for the product") do |link_id|
   @last_cart_item = CartItem.last
   @initial_quantity = @last_cart_item.quantity.to_i
   @intial_subtotal = @last_cart_item.product.price
-  click_link(button_text)
+  click_link(link_id)
 end
 
 # I know, it's not a good wat to do it but I noticed that in this context, every time I run cucumber, in this feature,

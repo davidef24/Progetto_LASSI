@@ -31,7 +31,7 @@ Given("I am a logged in user and have a product in the cart") do
     click_link('cart-link') #going into the crat page
   end
   
-  When("I click the {string} link for the product multiple times exceeding its availability") do |link_text|
+  When("I click the link with id {string} for the product multiple times exceeding its availability") do |link_text|
     click_link(link_text) #avaialability is 2 so after this we should not be able to add any product
     click_link(link_text) 
   end
