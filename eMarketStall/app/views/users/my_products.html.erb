@@ -1,47 +1,79 @@
 <!-- app/views/users/my_products.html.erb -->
 <!-- app/views/users/my_products.html.erb -->
-<h1 style="font-family: 'Poppins', sans-serif; font-weight: 700;">My products</h1>
+<br><h1 style="font-family: 'Poppins', sans-serif; font-weight: 700;">My products</h1><br>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Verified</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Category</th>
-      <th>Availability</th>
-      <th>Reviews</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <% if product.verified %>
-          <td><span style="color: green; font-size: 20px;">&#x2713;</span></td>
-          <% else %>
-          <td><span style="color: red; font-size: 20px;">&#x2717;</span></td>
-          <% end %>
-        <td><%= product.title %></td>
-        <td><%= product.description %></td>
-        <td><%= product.price %></td>
-        <td><%= product.category %></td>
-        <% if product.availability == 0%>
-        <td>There are no remaining pieces of this product. You have sold all of them.</td>
-        <% elsif product.removed_from_seller%>
-        <td>You removed this product from sale on <%= product.removed_at %></td>
-        <% else %>
-          <td><%= product.availability %></td>
-          <% if can? :update, product || can?(:manage, product) %>
-            <td><%= link_to 'Edit', edit_product_path(product) %></td>
-            <% end %>
-            <% if can? :update, product || can?(:manage, product) %>
-            <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
-            <td><%= link_to 'Show', product_path(product) %></td>
-        <% end %>
-        <td><%= link_to 'View product reviews', product_reviews_path(product) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if @products.empty? %>
+  <div class="alert alert-warning mt-3">
+    <p class="font-weight-bolder">No products found</p>
+  </div>
+<% else %>
+  <div class="container">
+  <% @products.each do |product| %>
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <div class="card" style="width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <% if product.images.count==1 %>
+                <div class="p-4">
+                  <%= image_tag(product.thumbnail(0)) %>
+                </div>
+              <% elsif product.images.count>1 %>
+                <div id="carousel" class="carousel p-4" data-ride="carousel" data-interval="false">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+                    <% for i in 2..product.images.count do %>
+                      <li data-target=<% "#carousel"+i.to_s %> data-slide-to=<% (i-1).to_s %>></li>
+                    <% end %>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <%= image_tag(product.thumbnail(0)) %>
+                    </div>
+                    <% for i in 1...product.images.count do %>
+                    <div class="carousel-item">
+                      <%= image_tag(product.thumbnail(i)) %>
+                    </div>
+                    <% end %>
+                  </div>
+                  <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <div>
+                  <h1 class="card-title" style="font-family: 'Poppins', sans-serif; font-weight: 400;"><%= link_to product.title, product %>    <% if product.verified %><span style="color: green; font-size: 40px;">&#x2713;</span><% end %></h1>
+                  <h5 class="card-text" style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= product.description %></h5>
+                  <h3 class="card-text"><%= "€"+product.price.to_s+"0" %></h3>
+                  <% if product.availability <= 3 %>
+                    <p style="color: red;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">Remaining: <%= product.availability.to_s %></p>
+                  <% elsif  product.availability > 3 && product.availability < 8 %>
+                    <p style="color: orange;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">Remaining: <%= product.availability.to_s %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body d-flex flex-column justify-content-end align-items-center">
+                <div>
+                  <%= link_to cart_item_path(product), method: :delete do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#242424}</style><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/></svg>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+<% end %>
