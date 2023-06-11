@@ -4,62 +4,62 @@
     <div class="col-lg-6">
       <div class="card">
         <div class="card-body">
-          <h2 class="text-center mb-4">Insert your personal data</h2>
+          <h2 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; font-weight: 800;">Insert your personal data</h2>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "needs-validation", novalidate: true}) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
             <div class="mb-3">
-              <%= f.label :nome, "First name", class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :nome, "First name", class: "form-label " %></h6>
               <%= f.text_field :nome, class: "form-control", id: "name", autocomplete: "off", onchange: "return nameIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :cognome, "Last name", class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :cognome, "Last name", class: "form-label " %></h6>
               <%= f.text_field :cognome, class: "form-control", id: "surname", autocomplete: "off", onchange: "return surnameIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :città, "City of residence", class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :città, "City of residence", class: "form-label "%></h6>
               <%= f.text_field :città, class: "form-control", id: "city", autocomplete: "off", onchange: "return cityIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :via_residenza, "Street of residence",class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :via_residenza, "Street of residence",class: "form-label "%></h6>
               <%= f.text_field :via_residenza, class: "form-control", id: "residence", autocomplete: "off", onchange: "return residenceIsValid();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :cap_residenza, "Postal code",class: "form-label font-weight-bold" %>
-              <%= f.text_field :cap_residenza, class: "form-control", id: "CAP", autocomplete: "off", onchange: "return CAPisValid();" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :cap_residenza, "Postal code",class: "form-label "%></h6>
+              <%= f.text_field :cap_residenza, class: "form-control", id: "CAP", autocomplete: "off", onchange: "return CAPisValid();"%>
             </div>
 
             <div class="mb-3">
-              <%= f.label :num_telefono, "Phone number",class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :num_telefono, "Phone number",class: "form-label " %></h6>
               <%= f.text_field :num_telefono, class: "form-control", id: "telephone", autocomplete: "off", onchange: "return telephoneIsValid();" %>
             </div>
 
             <div class="field">
-              <%= f.label :images, "Profile picture" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :images, "Profile picture" %></h6>
               <%= f.file_field :images, multiple: false %>
             </div>
 
-            <p class="font-weight-bold">Select your role. You will be able to change it and have different interactions with the app based on the role.</p>
+            <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Select your role. You will be able to change it and have different interactions with the app based on the role.</h6>
             <div class="form-check">
               <%= f.radio_button :roles_mask, '1', checked: f.object.roles_mask.to_s == '1', class: "form-check-input", id: "seller" %>
-              <%= f.label :roles_mask_seller, "Seller", class: "form-check-label" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :roles_mask_seller, "Seller", class: "form-check-label" %></h6>
             </div>
             <div class="form-check">
               <%= f.radio_button :roles_mask, '2', checked: f.object.roles_mask.to_s == '2', class: "form-check-input", id: "buyer" %>
-              <%= f.label :roles_mask_buyer, "Buyer", class: "form-check-label" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :roles_mask_buyer, "Buyer", class: "form-check-label" %></h6>
             </div>
 
             <div class="mb-3" style="margin-top:10px">
-              <%= f.label :email, class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :email, class: "form-label " %></h6>
               <%= f.email_field :email, class: "form-control", id: "email-reg", autofocus: true, autocomplete: "email", onchange: "return emailToRegister();" %>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password, class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :password, class: "form-label " %></h6>
               <% if @minimum_password_length %>
                 <em>(<%= @minimum_password_length %> characters minimum)</em>
               <% end %>
@@ -67,12 +67,12 @@
             </div>
 
             <div class="mb-3">
-              <%= f.label :password_confirmation, class: "form-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :password_confirmation, class: "form-label " %></h6>
               <%= f.password_field :password_confirmation, class: "form-control", id: "pwd2", autocomplete: "new-password" %>
             </div>
 
             <div class="text-center">
-              <%= f.submit "Sign up", class: "btn btn-primary font-weight-bold", onclick: "return validateForm();" %>
+              <%= f.submit "Sign up", class: "btn btn-primary ", onclick: "return validateForm();" %>
             </div>
           <% end %>
 

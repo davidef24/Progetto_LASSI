@@ -11,15 +11,15 @@ require 'devise'
 require 'devise/test/integration_helpers'
 require 'database_cleaner'
 
-DatabaseCleaner.strategy = :truncation
+#DatabaseCleaner.strategy = :truncation
 
-Before do
-  DatabaseCleaner.start
-end
+#Before do
+ # DatabaseCleaner.start
+#end
 
-After do
-  DatabaseCleaner.clean
-end
+#After do
+ # DatabaseCleaner.clean
+#end
 
 
 # frozen_string_literal: true

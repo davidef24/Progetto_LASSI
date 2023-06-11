@@ -1,17 +1,17 @@
 <div class="container d-flex justify-content-center align-items-center mt-5">
   <div class="card col-lg-4">
     <div class="card-body">
-      <h2 class="text-center mb-4 font-weight-bold">Login</h2>
+      <h2 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; font-weight: 800;">Login</h2>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <div class="field">
-          <%= f.label :email %><br />
+          <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :email %></h6><br>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
         </div>
 
         <div class="field">
-          <%= f.label :password %><br />
+          <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= f.label :password %></h6><br>
           <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
         </div>
 

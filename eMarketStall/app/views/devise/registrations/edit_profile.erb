@@ -8,45 +8,45 @@
 
           <%= form_with(model: @user, url: update_profile_path, method: :patch, html: {class: "needs-validation", novalidate: true}) do |form| %>
             <div class="form-group">
-              <%= form.label :città, "City of residence",  class: "font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :città, "City of residence"%></h6>
               <%= form.text_field :città,  id: "city", class: "form-control", onchange: "return cityIsValid();" %>
             </div>
 
             <div class="form-group">
-              <%= form.label :num_telefono, "Phone number", class: "font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :num_telefono, "Phone number"%></h6>
               <%= form.text_field :num_telefono, id: "telephone", class: "form-control", onchange: "return telephoneIsValid();" %>
             </div>
 
             <div class="form-group">
-              <%= form.label :via_residenza, "Street of residence", class: "font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :via_residenza, "Street of residence"%></h6>
               <%= form.text_field :via_residenza, id: "residence", class: "form-control", onchange: "return residenceIsValid();"  %>
             </div>
 
             <div class="form-group">
-              <%= form.label :cap_residenza, "Postal code", class: "font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :cap_residenza, "Postal code" %></h6>
               <%= form.text_field :cap_residenza, id: "CAP", class: "form-control", onchange: "return CAPisValid();"%>
             </div>
 
-            <p>Select your role:</p>
+            <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Select your role:</h6>
             <div class="form-check">
               <%= form.radio_button :roles_mask, '1', checked: form.object.roles_mask.to_s == '1', class: "form-check-input" %>
-              <%= form.label :roles_mask_seller, "Seller", class: "form-check-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :roles_mask_seller, "Seller", class: "form-check-label" %></h6>
             </div>
             <div class="form-check">
               <%= form.radio_button :roles_mask, '2', checked: form.object.roles_mask.to_s == '2', class: "form-check-input" %>
-              <%= form.label :roles_mask_buyer, "Buyer", class: "form-check-label font-weight-bold" %>
+              <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :roles_mask_buyer, "Buyer", class: "form-check-label" %></h6>
             </div>
 
             <br>
 
             <% if !@user.images.attached? %>
               <div class="field">
-                <%= form.label :images, "Add your profile picture" %>
+                <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :images, "Add your profile picture" %><h6>
                 <%= form.file_field :images, multiple: false %>
               </div>
             <% else %>
               <div class="field">
-                <%= form.label :images, "Modify your profile picture" %>
+                <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;"><%= form.label :images, "Modify your profile picture" %></h6>
                 <%= form.file_field :images, multiple: false %>
               </div>
             <% end %>
