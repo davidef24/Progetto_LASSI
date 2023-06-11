@@ -1,7 +1,6 @@
 class WishlistItemsController < ApplicationController
     
     def add
-        puts "------------------"+params.to_s+"----------------------"
         id=params[:id]
         added_product=Product.find_by(id: id)
         @wl_user=Wishlist.find_by(user_id: @current_user.id)
@@ -22,7 +21,6 @@ class WishlistItemsController < ApplicationController
     def remove
         id=params[:id]
         to_be_removed=Product.find_by(id: id)
-        puts "-------------------VOGLIO RIMUOVERE"+to_be_removed.title+"------------------------------"
         @wl_user=Wishlist.find_by(user_id: @current_user.id)
         @wl_user.wishlist_items.each do |p|
             if p.product.id==to_be_removed.id

@@ -69,7 +69,6 @@ class ProductsController < ApplicationController
   # DELETE /products/1 or /products/1.json
   def destroy
     authorize! :destroy, @product
-    puts "---------------------sto per distruggere----------------------"
     #I know, it's brutal but I had to add these two attributes to handle correctly a destruction from a seller of a product.
     #Did to resolve the following problem: When a seller removes a product from the database, it can create a problem with the foreign key constraint in the context
     #of orders. If a user has already purchased a product, but there are still remaining pieces of that product available for sale, the order associated with that
