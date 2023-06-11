@@ -55,7 +55,7 @@
                   <h5 class="card-text" style="font-family: 'Poppins', sans-serif; font-weight: 300;"><%= product.description %></h5>
                   <h3 class="card-text"><%= "€"+product.price.to_s+"0" %></h3>
                   <% if product.availability == 0%>
-                      <p style="font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">There are no remaining pieces of this article, you sold them all!</p>
+                      <p style="color: green;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">There are no remaining pieces of this article, you sold them all!</p>
                   <% elsif product.availability <= 3 %>
                     <p style="color: red;font-family: 'Poppins', sans-serif; font-weight: 200;font-size: 20px;">Remaining: <%= product.availability.to_s %></p>
                   <% elsif  product.availability > 3 && product.availability < 8 %>
